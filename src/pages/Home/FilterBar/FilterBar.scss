@@ -4,7 +4,15 @@
         .slick-prev,
         .slick-next {
             background: white;
-            @apply w-[25px] h-[25px];
+            @apply w-[25px] h-[25px] top-[38%];
+        }
+
+        .slick-prev {
+            @apply left-0;
+        }
+
+        .slick-next {
+            @apply right-0;
         }
 
         .slick-prev::before,
@@ -16,7 +24,7 @@
 
     .list-filter__item {
         display: flex !important;
-        @apply flex-col justify-between items-center;
+        @apply w-full flex-col justify-between items-center text-center;
 
         &:hover::after {
             @apply opacity-100;

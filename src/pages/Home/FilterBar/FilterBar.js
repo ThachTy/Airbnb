@@ -1,5 +1,5 @@
 import React from 'react'
-import { filter } from '../../utils/constants/filterBar'
+import { filter } from '../../../utils/constants/filterBar'
 import Slider from 'react-slick';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
