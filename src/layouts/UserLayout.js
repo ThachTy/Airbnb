@@ -4,7 +4,9 @@ export default function UserLayout({ children }) {
     return (
         <div>
             {/**header ở đây */}
-            {children}
+            <div className='cus-container'>
+                {children}
+            </div>
             {/**footer ở đây */}
         </div>
     )

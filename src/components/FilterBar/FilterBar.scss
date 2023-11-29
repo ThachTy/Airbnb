@@ -1,0 +1,37 @@
+.home__wrapper {
+    .slick-slider {
+
+        .slick-prev,
+        .slick-next {
+            background: white;
+            @apply w-[25px] h-[25px];
+        }
+
+        .slick-prev::before,
+        .slick-next::before {
+            color: #8f8989;
+            @apply text-[25px]
+        }
+    }
+
+    .list-filter__item {
+        display: flex !important;
+        @apply flex-col justify-between items-center;
+
+        &:hover::after {
+            @apply opacity-100;
+        }
+
+        p {
+            @apply text-[12px] mt-2;
+            color: #8f8989;
+        }
+    }
+
+    .list-filter__item::after {
+        content: '';
+        @apply block w-full h-[2px] opacity-0 transition-all mt-2;
+        background: #8f8989;
+
+    }
+}
