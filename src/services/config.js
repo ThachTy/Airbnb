@@ -1,4 +1,5 @@
-const { default: axios } = require("axios");
+import axios from "axios";
+
 const { TOKEN_CYBERSOFT } = require("../utils/constants");
 
 export const http = axios.create({
