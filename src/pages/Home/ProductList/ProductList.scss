@@ -4,6 +4,10 @@
     .productItem__wrapper {
         @apply p-4 flex flex-col justify-center;
 
+        &:hover {
+            cursor: pointer;
+        }
+
         .productItem__carousel {
 
             .slick-slider {

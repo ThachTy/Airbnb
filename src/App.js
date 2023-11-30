@@ -7,6 +7,7 @@ import Home from "./pages/Home/Home";
 import AdminLayout from "./layouts/AdminLayout";
 import Admin from "./pages/Admin/Admin";
 import Users from "./pages/Users/Users";
+import DetailRoom from "./pages/DetailRoom/DetailRoom";
 function App() {
   return (
     <div className="App">
@@ -14,6 +15,7 @@ function App() {
         <UserLayout>
           <Routes>
             <Route path="" element={<Home />} />
+            <Route path="/detail/:idRoom" element={<DetailRoom />} />
           </Routes>
         </UserLayout>
 

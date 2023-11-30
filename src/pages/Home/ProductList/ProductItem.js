@@ -3,8 +3,11 @@ import Slider from 'react-slick';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { MAX_LENGTH } from '../../../utils/constants';
+import { useNavigate } from 'react-router-dom';
 
 export default function ProductItem({ data }) {
+    const navigate = useNavigate();
+
     const settings = {
         dots: true,
         infinite: false,
@@ -21,8 +24,13 @@ export default function ProductItem({ data }) {
     }
 
     const { id, hinhAnh, tenPhong, giaTien } = data
+
+    const handleChooseRoom = (idRoom) => {
+        navigate(`/detail/${idRoom}`)
+    }
+
     return (
-        <div className='productItem__wrapper'>
+        <div className='productItem__wrapper' onClick={() => handleChooseRoom(id)}>
             <div className="productItem__carousel">
                 <Slider {...settings}>
                     {images.map((item) => {
