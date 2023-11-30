@@ -6,8 +6,11 @@ import ProductItem from './ProductItem';
 
 export default function ProductList() {
 
+    const tempParam = false; // sau này sẽ nhận giá trị từ header
+
     const products = useQuery({
-        queryKey: ['queryProduct'],
+        queryKey: ['queryProduct', tempParam], // queryKey: nếu nhận vào 1 param, khi param có sự thay đổi => trigger queryFn ~ useEffect
+        //do header có thanh search/ lọc location => mỗi lần lọc => trigger queryFn dưới => cần 1 biến để tempParam trigger
         queryFn: () => phongService.getRoomList()
     })
 
