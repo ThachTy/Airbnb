@@ -19,7 +19,7 @@ export default function FilterBar() {
             {filter.map((item, index) => {
                 return (
                     <div key={index} className='list-filter__item'>
-                        <img src={item.icon} alt="" width={24} height={24} className='object-contain' />
+                        <img src={item.icon} alt="" className='' />
                         <p>{item.desc}</p>
                     </div>
                 )

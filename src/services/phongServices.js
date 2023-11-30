@@ -2,6 +2,6 @@ import { http } from "./config"
 
 export const phongService = {
     getRoomList: () => {
-        return http
+        return http.get('/phong-thue')
     }
 }
