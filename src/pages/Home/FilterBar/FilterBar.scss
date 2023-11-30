@@ -3,7 +3,8 @@
 
         .slick-prev,
         .slick-next {
-            background: white;
+            // background: white;
+            z-index: 100 !important;
             @apply w-[25px] h-[25px] top-[38%];
         }
 
@@ -17,7 +18,7 @@
 
         .slick-prev::before,
         .slick-next::before {
-            color: #8f8989;
+            color: #a69e9e;
             @apply text-[25px]
         }
     }
@@ -33,6 +34,10 @@
         p {
             @apply text-[12px] mt-2;
             color: #8f8989;
+        }
+
+        img {
+            @apply w-6 h-6;
         }
     }
 
