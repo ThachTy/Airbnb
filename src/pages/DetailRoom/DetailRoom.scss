@@ -1,0 +1,53 @@
+.detailroom__wrapper {
+    .detailroom__title {
+        @apply font-semibold text-3xl tracking-widest;
+    }
+    .detailroom__location {
+        @apply flex justify-between items-center;
+
+        p {
+            @apply underline text-sm font-normal tracking-widest mx-1;
+        }
+
+        div {
+            span {
+                @apply text-sm font-semibold py-1 px-2 rounded-lg transition-all;
+                &:hover {
+                    @apply bg-gray-100 cursor-pointer;
+                }
+            }
+        }
+    }
+
+    .detailroom__img-section {
+        @apply mt-5 grid grid-cols-4 grid-rows-2 gap-5 h-[380px];
+
+        .detailroom__img-item {
+            img {
+                @apply w-full h-full object-cover;
+            }
+
+            &:first-child {
+                @apply col-span-2 row-span-2;
+                img {
+                    @apply w-full object-cover rounded-l-xl rounded-r-none;
+                }
+            }
+
+            &:nth-child(3) {
+                img {
+                    @apply w-full h-full rounded-tr-xl overflow-hidden;
+                }
+            }
+
+            &:last-child {
+                img {
+                    @apply w-full h-full rounded-br-xl overflow-hidden;
+                }
+            }
+
+            @apply col-span-1;
+        }
+
+    }
+}
