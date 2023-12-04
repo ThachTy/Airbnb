@@ -1,7 +1,16 @@
+@mixin section-underline {
+    &::after {
+        content: '';
+        @apply block h-[1px] w-full mt-6;
+        background: #e5e7eb;
+    }
+}
+
 .detailroom__wrapper {
     .detailroom__title {
         @apply font-semibold text-3xl tracking-widest;
     }
+
     .detailroom__location {
         @apply flex justify-between items-center;
 
@@ -12,6 +21,7 @@
         div {
             span {
                 @apply text-sm font-semibold py-1 px-2 rounded-lg transition-all;
+
                 &:hover {
                     @apply bg-gray-100 cursor-pointer;
                 }
@@ -29,6 +39,7 @@
 
             &:first-child {
                 @apply col-span-2 row-span-2;
+
                 img {
                     @apply w-full object-cover rounded-l-xl rounded-r-none;
                 }
@@ -50,4 +61,104 @@
         }
 
     }
+
+    .detailroom__desc-section {
+        @apply grid grid-cols-12 gap-10;
+
+        .detailroom__desc-detail {
+            @apply col-span-8 py-6;
+
+            .detailroom__desc-introduce {
+                @apply py-4;
+                @include section-underline;
+
+                .detailroom__desc-detail-title {
+                    @apply font-semibold text-lg sm:text-2xl text-gray-800;
+                }
+
+                .dedetailroom__desc-detail-totalroom {
+                    @apply text-sm font-normal tracking-widest text-gray-700;
+
+                    span {
+                        @apply mx-1;
+                    }
+                }
+            }
+
+            .detailroom__desc-general {
+                @apply py-4;
+                @include section-underline;
+
+                .general__item {
+                    @apply flex justify-start items-start mb-5;
+
+                    i {
+                        @apply text-2xl;
+                    }
+
+                    div {
+                        @apply ml-4;
+
+                        h3 {
+                            @apply font-semibold text-gray-800 text-base sm:text-lg;
+                        }
+
+                        p {
+                            color: #6b7280;
+                            @apply text-[14px];
+                        }
+                    }
+                }
+            }
+
+            .detailroom__desc-intro-web {
+                @apply py-4;
+                @include section-underline;
+
+                img {
+                    @apply object-contain mb-4;
+                }
+
+                p {
+                    @apply mb-4 text-[16px];
+                }
+
+                a {
+                    @apply underline font-semibold;
+                }
+            }
+        }
+
+        .detailroom__desc-booking {
+            @apply col-span-4 py-10;
+
+            .detailroom-booking__wrapper {
+                @apply p-4 rounded-md shadow-md border border-slate-500 sticky top-4 w-[95%];
+
+                .date-section {
+                    @apply w-full flex flex-col border border-solid border-gray-400 rounded-md;
+
+                    .datePicker {
+                        @apply flex w-full border-b border-solid border-gray-400;
+                    }
+                }
+
+                .customerChoose {
+                    @apply p-2;
+
+                    p {
+                        @apply text-[12px] font-semibold uppercase;
+                    }
+
+                    div {
+                        @apply flex justify-between items-center;
+                    }
+                }
+            }
+        }
+    }
+}
+
+.k-animation-container {
+    @apply bg-purple-400;
 }
