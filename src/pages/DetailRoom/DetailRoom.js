@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useQuery } from "react-query";
 import { useParams } from "react-router-dom";
-import { phongService, vitriServices } from "../../services";
+import { binhluanServices, phongService, vitriServices } from "../../services";
 import { DateRangePicker } from "@progress/kendo-react-dateinputs";
 import "./DetailRoom.scss";
 import CustomStartDate from "./CustomStartDate";
@@ -21,8 +21,9 @@ export default function DetailRoom() {
   const [data, setData] = useState([]);
   const [list, setList] = useState([]);
   const [s, setS] = useState(0)
+  const [comments, setComments] = useState([]);
 
-  console.log('list', list)
+  console.log('comments', comments)
 
   const result = useQuery({
     queryKey: ["roomDetail"],
@@ -43,20 +44,29 @@ export default function DetailRoom() {
     }
   });
 
+  const detailRoomComments = useQuery({
+    queryKey: ['comments'],
+    queryFn: () => binhluanServices.getCommentsByIdRoom(idRoom),
+    onSuccess: (data) => {
+      // console.log('dataComments', data.data.content);
+      setComments(data.data.content);
+    }
+  })
+
 
   useEffect(() => {
     let cloneKey = detailRoom && Object.keys(detailRoom).filter((key, index) => {
       return detailRoom[key] == true;
     })
-    console.log('funct', funcT(cloneKey))
     setList(convertDetailUtil(funcT(cloneKey)));
   }, [detailRoom])
 
 
   const [value, setValue] = useState({
     start: new Date(2018, 8, 5),
-    end: new Date(2018, 8, 12),
+    end: new Date(2018, 8, 6),
   });
+
 
   const handleChange = (event) => {
     setValue(event.value);
@@ -71,7 +81,6 @@ export default function DetailRoom() {
     let detailUtils = [];
 
     cloneKey && Object.keys(cloneKey).forEach((key, index) => {
-      console.log('key', cloneKey[key])
       let cloneDetailUtil = detailRoomUtils.find((item, index) => {
         return item.key == cloneKey[key];
       })
@@ -88,12 +97,19 @@ export default function DetailRoom() {
     return array.slice(initSlice, upperSlice);
   }
 
+  const calculateDaysDifference = () => {
+    const startDate = value?.start?.getTime();
+    const endDate = value?.end?.getTime();
+    const timeDifference = endDate - startDate;
+    const daysDifference = timeDifference / (1000 * 3600 * 24); // Chuyển đổi từ milliseconds sang ngày
+    return daysDifference;
+  };
+
 
   const images = [1, 2, 3, 4, 5];
 
   const onLoadMore = () => {
     if (list.length + 3 > s) {
-      console.log('kkwd', s)
       return;
     };
     let upCount = count + 3;
@@ -104,6 +120,10 @@ export default function DetailRoom() {
       list.concat(convertDetailUtil(funcT(cloneKey), count, upCount))
     );
   };
+
+  const calTotalPrice = (price, days) => {
+    return price * days;
+  }
 
   const loadMore = <button className="detailroom-btn" onClick={onLoadMore}>loading more</button>
 
@@ -199,7 +219,7 @@ export default function DetailRoom() {
           </div>
           <div className="detailroom__desc-booking">
             <div className="detailroom-booking__wrapper">
-              <div>
+              <div className="detailroom-booking__heading">
                 <p> $80 <span>/đêm</span> </p>
               </div>
               <div className="date-section">
@@ -213,8 +233,28 @@ export default function DetailRoom() {
                   </div>
                 </div>
               </div>
+              <div className="detailroom-booking__btn-section">
+                <button className="detailroom-booking__btnbooking">Đặt phòng</button>
+              </div>
+              <div className="detailroom-booking__total-section">
+                <div className="detailroom-booking__totalprice">
+                  <p> $<span>{detailRoom.giaTien}</span> x <span>${value && calculateDaysDifference()}</span> đêm</p>
+                  <p>${value && calTotalPrice(detailRoom.giaTien, calculateDaysDifference())}</p>
+                </div>
+                <div className="detailroom-booking__totalfee">
+                  <p>Phí dịch vụ</p>
+                  <p>0$</p>
+                </div>
+              </div>
+              <div className="detailroom-booking__totalbeforetax">
+                <p>Tổng trước thuế</p>
+                <p>${value && calTotalPrice(detailRoom.giaTien, calculateDaysDifference())}</p>
+              </div>
             </div>
           </div>
+        </div>
+        <div className="detailroom__comments">
+          <h1>commet s</h1>
         </div>
       </div>
     )

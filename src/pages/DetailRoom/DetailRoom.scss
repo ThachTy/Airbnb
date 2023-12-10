@@ -186,6 +186,14 @@
             .detailroom-booking__wrapper {
                 @apply p-4 rounded-md shadow-md border border-slate-500 sticky top-4 w-[95%];
 
+                .detailroom-booking__heading {
+                    @apply hidden md:flex justify-between items-center mb-4;
+
+                    p {
+                        @apply text-xl font-semibold;
+                    }
+                }
+
                 .date-section {
                     @apply w-full flex flex-col border border-solid border-gray-400 rounded-md;
 
@@ -203,7 +211,31 @@
 
                     div {
                         @apply flex justify-between items-center;
+
+                        button {
+                            @apply w-8 h-8 bg-gray-300 hover:bg-red-400 duration-200 rounded-xl text-white cursor-pointer;
+                        }
                     }
+                }
+
+                .detailroom-booking__btn-section {
+                    .detailroom-booking__btnbooking {
+                        @apply w-full py-3 mt-3 rounded-lg text-white text-lg font-semibold;
+                        background: linear-gradient(to right, rgb(230, 30, 77) 0%, rgb(227, 28, 95) 50%, rgb(215, 4, 102) 100%);
+                    }
+                }
+
+                .detailroom-booking__total-section {
+                    @apply py-2 border-b;
+
+                    .detailroom-booking__totalprice,
+                    .detailroom-booking__totalfee {
+                        @apply flex justify-between items-center py-1;
+                    }
+                }
+
+                .detailroom-booking__totalbeforetax {
+                    @apply flex justify-between items-center text-lg font-semibold pt-3;
                 }
             }
         }
