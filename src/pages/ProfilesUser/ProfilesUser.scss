@@ -1,0 +1,88 @@
+#profiles {
+  /* Left */
+  .profiles-left {
+    border: 1px solid #c7c7c7;
+    border-radius: 7px;
+    position: relative;
+
+    .btn-editAvatar {
+      color: #929292;
+      font-size: 1rem;
+      line-height: 1.5rem;
+    }
+
+    .checked-icon {
+      width: 50px;
+      height: 50px;
+    }
+    .checked-text {
+      color: #929292;
+      line-height: 1.6rem;
+    }
+    .btn-badge {
+      border: 1px solid #cacaca;
+      display: block;
+      border-radius: 7px;
+      padding: 0.7rem 1.5rem;
+      font-size: 0.8rem;
+      font-weight: 500;
+    }
+    footer {
+      h4 {
+        font-size: 1.2rem;
+        font-weight: 600;
+      }
+      ul {
+        list-style-type: circle;
+      }
+    }
+  }
+  /* Right */
+  .profile-right {
+    margin-left: 1rem;
+    border-radius: 7px;
+    background-color: #f3f3f3;
+    .btn-save {
+      font-size: 0.8rem;
+      padding: 0.2rem 0.4rem;
+      border-radius: 5px;
+      color: #c7c7c7;
+      cursor: pointer;
+
+      &.btn-color {
+        color: #434343;
+      }
+
+      &:hover {
+        background-color: #f3f3f3;
+        color: #434343;
+      }
+    }
+    .info-required {
+      background-color: #fff;
+      border-radius: 5px;
+    }
+    .form-group {
+      margin-bottom: 0.5rem;
+      .label {
+        font-weight: 400;
+        font-size: 0.7rem;
+        line-height: 1.5rem;
+      }
+      .form-controls {
+        width: 50%;
+        height: 1.5rem;
+        color: #434343;
+        font-size: 0.7rem;
+        border: 1px solid #c7c7c7;
+        line-height: 1.2rem;
+        border-radius: 5px;
+        padding-left: 0.5rem;
+      }
+    }
+
+    .title {
+      @apply text-sm font-medium leading-6 text-gray-900;
+    }
+  }
+}
