@@ -11,13 +11,13 @@ import {
   message,
 } from "antd";
 import dayjs from "dayjs";
+import { dateFormat } from "../../../../utils/constants/dateFormat";
 import {
   usePostNewUserMutation,
   usePutNewUserMutation,
 } from "../../mutation/userMutation";
 
 let { Option } = Select;
-let dateFormat = "DD/MM/YYYY";
 let defaultDate = dayjs();
 
 const Register = ({ open, setOpen, userEdit }) => {
