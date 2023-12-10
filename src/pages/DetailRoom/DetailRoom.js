@@ -6,12 +6,23 @@ import { DateRangePicker } from "@progress/kendo-react-dateinputs";
 import "./DetailRoom.scss";
 import CustomStartDate from "./CustomStartDate";
 import CustomEndDate from "./CustomEndDate";
+import { detailRoomUtils } from "../../utils/constants";
+import { Button, List, Skeleton } from "antd";
+
 
 export default function DetailRoom() {
+  let count = 3;
+  let maxList = 0;
   const { idRoom } = useParams();
 
   const [detailRoom, setDetailRoom] = useState(null);
   const [isClose, setIsClose] = useState(true);
+  const [khach, setKhach] = useState(0);
+  const [data, setData] = useState([]);
+  const [list, setList] = useState([]);
+  const [s, setS] = useState(0)
+
+  console.log('list', list)
 
   const result = useQuery({
     queryKey: ["roomDetail"],
@@ -32,7 +43,15 @@ export default function DetailRoom() {
     }
   });
 
-  console.log('after', detailRoom)
+
+  useEffect(() => {
+    let cloneKey = detailRoom && Object.keys(detailRoom).filter((key, index) => {
+      return detailRoom[key] == true;
+    })
+    console.log('funct', funcT(cloneKey))
+    setList(convertDetailUtil(funcT(cloneKey)));
+  }, [detailRoom])
+
 
   const [value, setValue] = useState({
     start: new Date(2018, 8, 5),
@@ -43,8 +62,50 @@ export default function DetailRoom() {
     setValue(event.value);
   };
 
+  const handleChangeCustomer = (change) => {
+    if (khach + change < 0) return;
+    setKhach(khach + change);
+  }
+
+  const funcT = (cloneKey) => {
+    let detailUtils = [];
+
+    cloneKey && Object.keys(cloneKey).forEach((key, index) => {
+      console.log('key', cloneKey[key])
+      let cloneDetailUtil = detailRoomUtils.find((item, index) => {
+        return item.key == cloneKey[key];
+      })
+      if (cloneDetailUtil) detailUtils.push(cloneDetailUtil)
+    })
+
+    maxList = detailUtils.length;
+    setS(detailUtils.length)
+    return detailUtils;
+  }
+
+  const convertDetailUtil = (array, initSlice = 0, upperSlice = array.length / 2) => {
+    if (array.length <= 4) return array;
+    return array.slice(initSlice, upperSlice);
+  }
+
 
   const images = [1, 2, 3, 4, 5];
+
+  const onLoadMore = () => {
+    if (list.length + 3 > s) {
+      console.log('kkwd', s)
+      return;
+    };
+    let upCount = count + 3;
+    let cloneKey = detailRoom && Object.keys(detailRoom).filter((key, index) => {
+      return detailRoom[key] == true;
+    })
+    setList(
+      list.concat(convertDetailUtil(funcT(cloneKey), count, upCount))
+    );
+  };
+
+  const loadMore = <button className="detailroom-btn" onClick={onLoadMore}>loading more</button>
 
   return (
     detailRoom && (
@@ -109,6 +170,32 @@ export default function DetailRoom() {
               <p>Mọi đặt phòng đều được bảo vệ miễn phí trong trường hợp Chủ nhà hủy, thông tin nhà/phòng cho thuê không chính xác và những vấn đề khác như sự cố trong quá trình nhận phòng.</p>
               <a href="#">Tìm hiểu thêm</a>
             </div>
+            <div className="detailroom-desc-more">
+              <p>Một số thông tin đã được dịch tự động. <a>Hiển thị ngôn ngữ gốc</a> </p>
+              <p>Nhà nghỉ thôn dã hình lưỡi liềm trong một ngôi làng nghệ thuật gốm hai nghìn năm. Một ngôi nhà nguyên khối lớn với sân thượng ba tầng của Bảo tàng Văn hóa Guitar Serra, nổi tiếng với mặt tiền đặc sắc trong một ngôi làng nghệ thuật gốm hai nghìn năm pha trộn rất tốt với thiên nhiên.</p>
+              <p>Tận hưởng kỳ nghỉ dưỡng sức cảm xúc thư giãn trong một căn phòng ấm cúng, chào...</p>
+              <a href="#">Hiển thị thêm</a>
+            </div>
+            <div className="detailroom-desc-utils">
+              <p>Nơi này có những gì cho bạn</p>
+              <div className="detailroom-desc-utils-child">
+                {
+                  <List
+                    className="detailroom-desc-utils-child-list"
+                    itemLayout="horizontal"
+                    loadMore={loadMore}
+                    dataSource={list}
+                    renderItem={(item) => (
+                      <List.Item className="detailroom-desc-utils-child-list-item">
+                        <div>
+                          {item.icon} - {item.text}
+                        </div>
+                      </List.Item>
+                    )}
+                  />
+                }
+              </div>
+            </div>
           </div>
           <div className="detailroom__desc-booking">
             <div className="detailroom-booking__wrapper">
@@ -120,9 +207,9 @@ export default function DetailRoom() {
                 <div className="customerChoose">
                   <p>Khach</p>
                   <div className="">
-                    <button>-</button>
-                    <span>0</span>
-                    <button>+</button>
+                    <button onClick={() => handleChangeCustomer(-1)}>-</button>
+                    <span>{khach}</span>
+                    <button onClick={() => handleChangeCustomer(1)}>+</button>
                   </div>
                 </div>
               </div>
