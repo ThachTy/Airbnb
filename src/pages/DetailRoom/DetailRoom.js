@@ -22,8 +22,10 @@ export default function DetailRoom() {
   const [list, setList] = useState([]);
   const [s, setS] = useState(0)
   const [comments, setComments] = useState([]);
+  const [maxComments, setmaxComments] = useState([]);
 
-  console.log('comments', comments)
+  // console.log('comments', comments)
+  // console.log('maxComments', maxComments)
 
   const result = useQuery({
     queryKey: ["roomDetail"],
@@ -49,7 +51,7 @@ export default function DetailRoom() {
     queryFn: () => binhluanServices.getCommentsByIdRoom(idRoom),
     onSuccess: (data) => {
       // console.log('dataComments', data.data.content);
-      setComments(data.data.content);
+      setComments((data.data.content));
     }
   })
 
@@ -60,6 +62,10 @@ export default function DetailRoom() {
     })
     setList(convertDetailUtil(funcT(cloneKey)));
   }, [detailRoom])
+
+  useEffect(() => {
+    setmaxComments(converDetailComments(comments))
+  }, [comments])
 
 
   const [value, setValue] = useState({
@@ -97,6 +103,23 @@ export default function DetailRoom() {
     return array.slice(initSlice, upperSlice);
   }
 
+  const converDetailComments = (comments, initSlice = 0, upperSlice = 10) => {
+    //comments <= 10 => rtn;
+    // comments > 10 => 1 times more = 10 comments
+    //vd: 63 comments => 6 times more, du 3
+    //maxcomment = comments.slice(0, 9)
+    //maxcomment = comments.slice(10, 21) 
+    //=> check(maxcomments.l + 4(du) == comments.l) 
+    //? comments.slice(maxcomments.l + 1, comments.l); 
+    //: comments.slice(maxcomments.l, maxcomments.l + 9);
+    //maxcomment = comments.slice(22, 32)
+    //maxcomment = comments.slice(33, 43)
+    //maxcomment = comments.slice(44, 54)
+    //maxcomment = comments.slice(55, 64)
+    if (comments.length <= 10) return comments;
+    return comments.slice(initSlice, upperSlice);
+  }
+
   const calculateDaysDifference = () => {
     const startDate = value?.start?.getTime();
     const endDate = value?.end?.getTime();
@@ -121,11 +144,33 @@ export default function DetailRoom() {
     );
   };
 
+
+  const loadMoreComments = () => {
+    if (maxComments.length <= 9) {
+      return;
+    }
+    let du = comments.length % 10;
+    let upCount = maxComments.length + 9;
+    console.log({ up: upCount, maxComments })
+
+    // if (maxComments.length + du >= comments.length) {
+    //   console.log('du')
+    //   setmaxComments(
+    //     maxComments.concat(converDetailComments(comments, maxComments.length, comments.length))
+    //   )
+    // } else {
+    // }
+    setmaxComments(
+      maxComments.concat(converDetailComments(comments, maxComments.length, upCount)) //maxComments.length + 1 
+    )
+  }
+
   const calTotalPrice = (price, days) => {
     return price * days;
   }
 
   const loadMore = <button className="detailroom-btn" onClick={onLoadMore}>loading more</button>
+  const loadMoreCommentsBtn = <button className="detailroom-comments-btn" onClick={loadMoreComments}>Xem thêm bình luận</button>
 
   return (
     detailRoom && (
@@ -254,7 +299,29 @@ export default function DetailRoom() {
           </div>
         </div>
         <div className="detailroom__comments">
-          <h1>commet s</h1>
+          <h1> <span>{comments.length}</span> đánh giá</h1>
+          <List
+            className="detailroom__comments-list"
+            itemLayout="horizontal"
+            loadMore={loadMoreCommentsBtn}
+            dataSource={maxComments}
+            renderItem={(item) => (
+              <List.Item className="detailroom__comments-item">
+                <div className="commentItem__wrapper">
+                  <div className="commentItem__heading">
+                    <img src={item.avatar} alt="" width={50} height={50} />
+                    <div>
+                      <h3>{item.tenNguoiBinhLuan}</h3>
+                      <p>{item.ngayBinhLuan}</p>
+                    </div>
+                  </div>
+                  <div className="commentItem__body">
+                    <p>{item.noiDung}</p>
+                  </div>
+                </div>
+              </List.Item>
+            )}
+          />
         </div>
       </div>
     )

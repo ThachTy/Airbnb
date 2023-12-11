@@ -152,6 +152,8 @@
 
                     // @apply grid grid-cols-2 gap-5;
                     .detailroom-desc-utils-child-list {
+                        @apply border-none;
+
 
                         .ant-spin-nested-loading {
                             @apply p-0;
@@ -162,7 +164,11 @@
                                 .ant-list-items {
                                     // display: grid !important;
 
-                                    @apply grid grid-cols-2;
+                                    @apply grid grid-cols-2 border-none;
+
+                                    .ant-list-item.detailroom-desc-utils-child-list-item {
+                                        border-block-end: none !important;
+                                    }
                                 }
                             }
                         }
@@ -237,6 +243,59 @@
                 .detailroom-booking__totalbeforetax {
                     @apply flex justify-between items-center text-lg font-semibold pt-3;
                 }
+            }
+        }
+    }
+
+    .detailroom__comments {
+        h1 {
+            @apply font-semibold text-[16px] mb-4;
+        }
+
+        .detailroom-comments-btn {
+            //dwdawawawdwd
+            @apply mt-4 border border-solid border-gray-900 hover:bg-gray-100 transition-all duration-200 rounded-md px-5 py-3 font-semibold text-base text-gray-800 tracking-wider;
+        }
+
+        .detailroom__comments-list {
+            .ant-spin-container {
+
+                .ant-list-items {
+                    @apply grid grid-cols-2;
+
+                    .ant-list-item.detailroom__comments-item {
+                        border-block-end: none !important;
+
+                        .commentItem__wrapper {
+                            @apply flex flex-col;
+
+                            .commentItem__heading {
+                                @apply flex items-center;
+
+                                img {
+                                    @apply object-cover w-10 h-10 block rounded-[50%];
+                                }
+
+                                div {
+                                    @apply ml-3;
+
+                                    h3 {
+                                        @apply font-bold uppercase;
+                                    }
+
+                                    p {
+                                        @apply font-normal text-sm text-gray-500;
+                                    }
+                                }
+                            }
+
+                            .commentItem__body {
+                                @apply mt-3;
+                            }
+                        }
+                    }
+                }
+
             }
         }
     }

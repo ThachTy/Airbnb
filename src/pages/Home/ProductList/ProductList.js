@@ -14,7 +14,7 @@ export default function ProductList() {
         queryFn: () => phongService.getRoomList()
     })
 
-    console.log(products?.data?.data?.content);
+    // console.log(products?.data?.data?.content);
 
 
 
