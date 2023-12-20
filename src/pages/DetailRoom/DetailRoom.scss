@@ -1,0 +1,306 @@
+@mixin section-underline {
+    &::after {
+        content: '';
+        @apply block h-[1px] w-full mt-6;
+        background: #e5e7eb;
+    }
+}
+
+.detailroom__wrapper {
+    .detailroom__title {
+        @apply font-semibold text-3xl tracking-widest;
+    }
+
+    .detailroom__location {
+        @apply flex justify-between items-center;
+
+        p {
+            @apply underline text-sm font-normal tracking-widest mx-1;
+        }
+
+        div {
+            span {
+                @apply text-sm font-semibold py-1 px-2 rounded-lg transition-all;
+
+                &:hover {
+                    @apply bg-gray-100 cursor-pointer;
+                }
+            }
+        }
+    }
+
+    .detailroom__img-section {
+        @apply mt-5 grid grid-cols-4 grid-rows-2 gap-5 h-[380px];
+
+        .detailroom__img-item {
+            img {
+                @apply w-full h-full object-cover;
+            }
+
+            &:first-child {
+                @apply col-span-2 row-span-2;
+
+                img {
+                    @apply w-full object-cover rounded-l-xl rounded-r-none;
+                }
+            }
+
+            &:nth-child(3) {
+                img {
+                    @apply w-full h-full rounded-tr-xl overflow-hidden;
+                }
+            }
+
+            &:last-child {
+                img {
+                    @apply w-full h-full rounded-br-xl overflow-hidden;
+                }
+            }
+
+            @apply col-span-1;
+        }
+
+    }
+
+    .detailroom__desc-section {
+        @apply grid grid-cols-12 gap-10;
+
+        .detailroom__desc-detail {
+            @apply col-span-8 py-6;
+
+            .detailroom__desc-introduce {
+                @apply py-4;
+                @include section-underline;
+
+                .detailroom__desc-detail-title {
+                    @apply font-semibold text-lg sm:text-2xl text-gray-800;
+                }
+
+                .dedetailroom__desc-detail-totalroom {
+                    @apply text-sm font-normal tracking-widest text-gray-700;
+
+                    span {
+                        @apply mx-1;
+                    }
+                }
+            }
+
+            .detailroom__desc-general {
+                @apply py-4;
+                @include section-underline;
+
+                .general__item {
+                    @apply flex justify-start items-start mb-5;
+
+                    i {
+                        @apply text-2xl;
+                    }
+
+                    div {
+                        @apply ml-4;
+
+                        h3 {
+                            @apply font-semibold text-gray-800 text-base sm:text-lg;
+                        }
+
+                        p {
+                            color: #6b7280;
+                            @apply text-[14px];
+                        }
+                    }
+                }
+            }
+
+            .detailroom__desc-intro-web {
+                @apply py-4;
+                @include section-underline;
+
+                img {
+                    @apply object-contain mb-4;
+                }
+
+                p {
+                    @apply mb-4 text-[16px] text-gray-800 tracking-wider;
+                }
+
+                a {
+                    @apply underline font-semibold;
+                }
+            }
+
+            .detailroom-desc-more {
+                @include section-underline();
+
+                p {
+                    @apply text-base tracking-wider text-gray-800 mb-4;
+                }
+
+                a {
+                    @apply font-semibold underline;
+                }
+            }
+
+            .detailroom-desc-utils {
+                @apply py-5;
+                @include section-underline();
+
+                p {
+                    @apply font-semibold text-gray-800 text-xl pb-4;
+                }
+
+                .detailroom-desc-utils-child {
+
+                    // @apply grid grid-cols-2 gap-5;
+                    .detailroom-desc-utils-child-list {
+                        @apply border-none;
+
+
+                        .ant-spin-nested-loading {
+                            @apply p-0;
+
+                            .ant-spin-container {
+                                @apply p-0;
+
+                                .ant-list-items {
+                                    // display: grid !important;
+
+                                    @apply grid grid-cols-2 border-none;
+
+                                    .ant-list-item.detailroom-desc-utils-child-list-item {
+                                        border-block-end: none !important;
+                                    }
+                                }
+                            }
+                        }
+
+                    }
+
+                    button {
+                        @apply mt-4 border border-solid border-gray-900 hover:bg-gray-100 transition-all duration-200 rounded-md px-5 py-3 font-semibold text-base text-gray-800 tracking-wider;
+                    }
+
+                    div {
+                        @apply p-2;
+                    }
+                }
+            }
+        }
+
+        .detailroom__desc-booking {
+            @apply col-span-4 py-10;
+
+            .detailroom-booking__wrapper {
+                @apply p-4 rounded-md shadow-md border border-slate-500 sticky top-4 w-[95%];
+
+                .detailroom-booking__heading {
+                    @apply hidden md:flex justify-between items-center mb-4;
+
+                    p {
+                        @apply text-xl font-semibold;
+                    }
+                }
+
+                .date-section {
+                    @apply w-full flex flex-col border border-solid border-gray-400 rounded-md;
+
+                    .datePicker {
+                        @apply flex w-full border-b border-solid border-gray-400;
+                    }
+                }
+
+                .customerChoose {
+                    @apply p-2;
+
+                    p {
+                        @apply text-[12px] font-semibold uppercase;
+                    }
+
+                    div {
+                        @apply flex justify-between items-center;
+
+                        button {
+                            @apply w-8 h-8 bg-gray-300 hover:bg-red-400 duration-200 rounded-xl text-white cursor-pointer;
+                        }
+                    }
+                }
+
+                .detailroom-booking__btn-section {
+                    .detailroom-booking__btnbooking {
+                        @apply w-full py-3 mt-3 rounded-lg text-white text-lg font-semibold;
+                        background: linear-gradient(to right, rgb(230, 30, 77) 0%, rgb(227, 28, 95) 50%, rgb(215, 4, 102) 100%);
+                    }
+                }
+
+                .detailroom-booking__total-section {
+                    @apply py-2 border-b;
+
+                    .detailroom-booking__totalprice,
+                    .detailroom-booking__totalfee {
+                        @apply flex justify-between items-center py-1;
+                    }
+                }
+
+                .detailroom-booking__totalbeforetax {
+                    @apply flex justify-between items-center text-lg font-semibold pt-3;
+                }
+            }
+        }
+    }
+
+    .detailroom__comments {
+        h1 {
+            @apply font-semibold text-[16px] mb-4;
+        }
+
+        .detailroom-comments-btn {
+            //dwdawawawdwd
+            @apply mt-4 border border-solid border-gray-900 hover:bg-gray-100 transition-all duration-200 rounded-md px-5 py-3 font-semibold text-base text-gray-800 tracking-wider;
+        }
+
+        .detailroom__comments-list {
+            .ant-spin-container {
+
+                .ant-list-items {
+                    @apply grid grid-cols-2;
+
+                    .ant-list-item.detailroom__comments-item {
+                        border-block-end: none !important;
+
+                        .commentItem__wrapper {
+                            @apply flex flex-col;
+
+                            .commentItem__heading {
+                                @apply flex items-center;
+
+                                img {
+                                    @apply object-cover w-10 h-10 block rounded-[50%];
+                                }
+
+                                div {
+                                    @apply ml-3;
+
+                                    h3 {
+                                        @apply font-bold uppercase;
+                                    }
+
+                                    p {
+                                        @apply font-normal text-sm text-gray-500;
+                                    }
+                                }
+                            }
+
+                            .commentItem__body {
+                                @apply mt-3;
+                            }
+                        }
+                    }
+                }
+
+            }
+        }
+    }
+}
+
+.k-animation-container {
+    @apply bg-purple-400;
+}

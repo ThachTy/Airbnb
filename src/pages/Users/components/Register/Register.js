@@ -331,3 +331,4 @@ const Register = ({ open, setOpen, userEdit, refetchUsers }) => {
   );
 };
 export default memo(Register);
+
