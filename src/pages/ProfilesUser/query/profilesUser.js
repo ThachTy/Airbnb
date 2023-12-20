@@ -4,7 +4,7 @@ import { usersApi } from "../../../services/usersServices";
 /* */
 export const useGetProfilesUserById = (id) => {
   return new useQuery({
-    queryKey: ["getProfilessUsersById"],
+    queryKey: ["getProfilessUsersById", id],
     queryFn: () => usersApi.getProfilesUserById(id),
   });
 };

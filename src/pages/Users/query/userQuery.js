@@ -10,7 +10,7 @@ export const useGetUsersPerPage = (currentPage, pageSize) => {
 };
 
 /* */
-export const useSearchUserByName = (nameSearch) => {
+export const useSearchUsersByName = (nameSearch) => {
   return new useQuery({
     queryKey: ["searchUsersByName"],
     queryFn: () => fetchSearchUserByName(nameSearch),
@@ -37,9 +37,9 @@ export const fetchUserByPerPage = async (currentPage, pageSize) => {
 export const fetchSearchUserByName = async (name) => {
   try {
     let response = await usersApi
-      .searchUserByName(name)
+      .searchUsersByName(name)
       .then((res) => {
-        return res;
+        return res?.data.content;
       })
       .catch((error) => {
         throw error;

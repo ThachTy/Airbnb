@@ -1,10 +1,9 @@
 #account {
   .heading {
-    font-size: 2rem;
+    font-size: 1.5rem;
     font-weight: 600;
     line-height: 4rem;
     margin-bottom: 2rem;
-    border: 1px solid #f3f3f3;
   }
 
   .account-content {
@@ -14,47 +13,6 @@
       scroll-behavior: smooth;
       scroll-snap-type: mandatory;
       scroll-margin-top: 2px;
-      .booking-item {
-        box-shadow: 0px 0px 0px 1px #b0afafa0;
-        margin-bottom: 1rem;
-        border-radius: 10px;
-        overflow: hidden;
-        cursor: pointer;
-
-        &:hover {
-          box-shadow: 2px 2px 5px 3px #b0afafa0;
-        }
-
-        .booking-info {
-          .info-top {
-            border-bottom: 2px solid #f3f3f3;
-            .info-left {
-              h4 {
-                color: #434343;
-                font-weight: 600;
-                line-height: 1.5rem;
-                text-transform: uppercase;
-              }
-              span {
-                color: #434343;
-              }
-            }
-            .info-right {
-              color: #434343;
-              font-size: 0.9;
-            }
-          }
-          .info-bottom {
-            h4 {
-              color: #434343;
-              font-size: 1.1rem;
-              line-height: 1.7rem;
-              font-weight: 600;
-              margin-bottom: 0.2rem;
-            }
-          }
-        }
-      }
     }
     .dicover {
       position: sticky;
@@ -63,24 +21,20 @@
       border: 1px solid rgba(128, 128, 128, 0.541);
       border-radius: 7px;
       h4 {
+        color: #434343;
         font-weight: 600;
-        font-size: 1.4rem;
         margin-bottom: 0.5rem;
         text-transform: capitalize;
-        color: #434343;
       }
       p {
         margin-bottom: 0.5rem;
         color: gray;
-        font-size: 0.9rem;
-        line-height: 1.4rem;
         letter-spacing: 0.1rem;
       }
       button {
         border: 1px solid gray;
         border-radius: 5px;
         color: #000;
-        font-size: 0.9rem;
         font-weight: 500;
       }
     }

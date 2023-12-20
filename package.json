@@ -65,6 +65,7 @@
     ]
   },
   "devDependencies": {
+    "@tanstack/react-query-devtools": "^5.13.5",
     "tailwindcss": "^3.3.5"
   }
 }

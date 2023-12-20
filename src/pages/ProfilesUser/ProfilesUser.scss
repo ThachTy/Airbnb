@@ -70,7 +70,6 @@
         line-height: 1.5rem;
       }
       .form-controls {
-        width: 50%;
         height: 1.5rem;
         color: #434343;
         font-size: 0.7rem;
@@ -82,7 +81,45 @@
     }
 
     .title {
+      white-space: nowrap;
+      text-align: left;
       @apply text-sm font-medium leading-6 text-gray-900;
     }
+  }
+}
+
+@media screen and (min-width: 576px) {
+  .form-controls {
+    width: 50%;
+  }
+  .title {
+    min-width: 40%;
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .form-controls {
+    width: 50%;
+  }
+  .title {
+    min-width: 40%;
+  }
+}
+
+@media screen and (min-width: 992px) {
+  .form-controls {
+    width: 50%;
+  }
+  .title {
+    min-width: 40%;
+  }
+}
+
+@media screen and (min-width: 1200px) {
+  .form-controls {
+    width: 50%;
+  }
+  .title {
+    min-width: 40%;
   }
 }
