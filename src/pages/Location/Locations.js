@@ -1,44 +1,47 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Pagination, message, Form, Input, Button } from "antd";
-import { Link } from "react-router-dom";
-import "./Users.scss";
+import "./Locations.scss";
 import defaultAvatar from "../../assets/image/AvatarUser.png";
 import Loading from "../../components/Loading/Loading.js";
 import Register from "./components/Register/Register.js";
 import { queryClient } from "../../App.js";
-import { useDeleteUserMutation } from "./mutation/userMutation.js";
-import { useGetUsersPerPage, fetchSearchUserByName } from "./query/userQuery";
+import { stringToSlug } from "../../utils/method.js";
+import { useDeleteLocationMutation } from "./mutation/locationsMutation.js";
+import {
+  useGetLocationsPerPage,
+  fetchSearchLocationsByName,
+} from "./query/locationsQuery.js";
 
-export default function Users() {
+export default function Locations() {
   /* Hook */
   const [page, setPage] = useState({ currentPage: 1, pageSize: 10 });
   const [open, setOpen] = useState(false);
-  const [userEdit, setUserEdit] = useState({});
-  const [users, setUsers] = useState([]);
+  const [locationEdit, setLocationEdit] = useState({});
+  const [locations, setLocations] = useState([]);
   const inputSearchRef = useRef(HTMLElement);
-  const totalUsersRef = useRef(0);
+  const totalLocationsRef = useRef(0);
 
   /* Query */
   const {
-    data: responseUsers,
+    data: responseLocations,
     isLoading,
     refetch,
-  } = useGetUsersPerPage(page.currentPage, page.pageSize);
+  } = useGetLocationsPerPage(page.currentPage, page.pageSize);
 
   /* Mutation */
   const {
     mutate,
-    data: userResponse,
+    data: locationResponse,
     isLoading: deleteLoading,
-  } = useDeleteUserMutation();
+  } = useDeleteLocationMutation();
 
   /* */
   useEffect(() => {
-    if (responseUsers?.data !== undefined) {
-      setUsers(responseUsers?.data);
-      totalUsersRef.current = responseUsers.totalRow;
+    if (responseLocations?.data !== undefined) {
+      setLocations(responseLocations?.data);
+      totalLocationsRef.current = responseLocations.totalRow;
     }
-  }, [responseUsers]);
+  }, [responseLocations]);
 
   useEffect(() => {
     refetch();
@@ -46,7 +49,7 @@ export default function Users() {
 
   /* Handle */
   // Delete
-  const handleDeleteUser = (id) => {
+  const handleDeleteLocation = (id) => {
     mutate(id, {
       onSuccess: (res) => {
         res?.status === 200 &&
@@ -69,19 +72,16 @@ export default function Users() {
 
   // Search
   const hanleSearchByName = async () => {
-    let valueSearch = inputSearchRef.current.input.value;
-    if (valueSearch === "") {
-      const users = queryClient.getQueryData(["getUsersPerPage"]);
-      setUsers(users.data);
-      totalUsersRef.current = users.totalRow;
-      return;
-    }
-    let data = await queryClient.fetchQuery({
-      queryKey: ["searchUsersByName", valueSearch],
-      queryFn: () => fetchSearchUserByName(valueSearch),
-    });
-
-    data && setUsers(data);
+    console.log("Search");
+    // if (inputSearchRef.current.input.value === "") {
+    //   const locations = queryClient.getQueryData(["getLocationsPerPage"]);
+    //   setLocations(locations.data);
+    //   totalLocationsRef.current = locations.totalRow;
+    //   return;
+    // }
+    // let valueSearch = stringToSlug(inputSearchRef.current.input.value);
+    // let { data } = await fetchSearchLocationsByName(valueSearch);
+    // data && setLocations(data.content);
   };
 
   /* Handle */
@@ -91,14 +91,14 @@ export default function Users() {
   };
 
   // Edit
-  const handleEdit = (user) => {
-    setUserEdit(user);
+  const handleEdit = (location) => {
+    setLocationEdit(location);
     setOpen(!open);
   };
 
   // Show Register
   const handleShowRegister = () => {
-    setUserEdit({});
+    setLocationEdit({});
     setOpen(!open);
   };
 
@@ -106,35 +106,36 @@ export default function Users() {
   if (isLoading || deleteLoading) return <Loading />;
 
   /* Render */
-  const renderUsers = (users = []) => {
-    if (users.length === 0 || users === undefined) return;
-    return users.map((user, index) => {
+  const renderLocations = (locations = []) => {
+    if (locations.length === 0 || locations === undefined) return;
+    return locations.map((location, index) => {
       return (
-        <tr className="row" key={`user-${index}`}>
-          <td className="cell cell-center">{user?.id}</td>
-          <td className="cell py-1">
+        <tr className="row" key={`location-${index}`}>
+          <td className="cell cell-center">{location?.id}</td>
+          <td className="cell px-1 py-1 w-[10vw]">
             <img
-              className=" min-w-[45px] min-h-[45px] w-[5vw] h-[5vw] rounded-full object-fit-cover mx-auto"
-              alt={user?.name}
-              src={user?.avatar ? user?.avatar : defaultAvatar}
+              className=" p-[2px] lg:p-1 border-[1px] lg:border-2 w-full h-full aspect-square rounded-xl object-fill block mx-auto"
+              alt={location?.name}
+              src={location?.hinhAnh ? location?.hinhAnh : defaultAvatar}
             />
           </td>
-          <td className="cell pl-[1rem]">{user?.name}</td>
-          <td className="cell pl-[1rem]">{user?.email}</td>
-          <td className="cell cell-center">{user?.role}</td>
+          <td className="cell pl-[1rem]">{location?.tenViTri}</td>
+          <td className="cell pl-[1rem]">{location?.tinhThanh}</td>
+
+          <td className="cell pl-[1rem]">{location?.quocGia}</td>
           <td className="cell cell-center">
-            <Link className="btn btn-details" to={`/profiles/${user.id}`}>
+            {/* <Link className="btn btn-details" to={`/profiles/${location.id}`}>
               Details
-            </Link>
+            </Link> */}
             <button
-              onClick={() => handleEdit(user)}
+              onClick={() => handleEdit(location)}
               className="btn btn-edit"
               type="button"
             >
               Edit
             </button>
             <button
-              onClick={() => handleDeleteUser(user?.id)}
+              onClick={() => handleDeleteLocation(location?.id)}
               className="btn btn-delete"
               type="button"
             >
@@ -147,14 +148,14 @@ export default function Users() {
   };
 
   return (
-    <section id="users" className=" min-w-full ">
-      <div className="users-top flex justify-evenly">
+    <section id="locations" className=" min-w-full ">
+      <div className="locations-top flex justify-evenly">
         <Button
           className="btn btn-add"
           type="button"
           onClick={handleShowRegister}
         >
-          Add Administrators
+          Add New Locations
         </Button>
         <Form className="form" layout="inline">
           <Form.Item>
@@ -175,30 +176,30 @@ export default function Users() {
           </Button>
         </Form>
       </div>
-      <div className="users-content flex-grown">
+      <div className="locations-content flex-grown">
         <table className="table">
           <thead>
             <tr className="heading">
               <th>Id</th>
-              <th>Avatar</th>
+              <th>Image</th>
               <th>Name</th>
-              <th>Email</th>
-              <th>Role</th>
+              <th>City</th>
+              <th>Country</th>
               <th>Setting</th>
             </tr>
           </thead>
           <tbody className="divide-y divide-slate-200">
-            {renderUsers(users)}
+            {renderLocations(locations)}
           </tbody>
         </table>
       </div>
-      <div className="users-footer py-2 text-center">
+      <div className="locations-footer py-2 text-center">
         <Pagination
           size="small"
           className=" mx-auto"
-          total={totalUsersRef.current}
+          total={totalLocationsRef.current}
           showTotal={() =>
-            `Total: ${responseUsers ? responseUsers.totalRow : 0}`
+            `Total: ${responseLocations ? responseLocations.totalRow : 0}`
           }
           pageSize={page.pageSize}
           pageSizeOptions={[10, 20, 50, 100]}
@@ -208,10 +209,10 @@ export default function Users() {
         />
       </div>
       <Register
-        refetchUsers={refetch}
-        userEdit={userEdit}
+        refetchLocations={refetch}
+        locationEdit={locationEdit}
         open={open}
-        setUsers={setUsers}
+        setLocations={setLocations}
         setOpen={setOpen}
       ></Register>
     </section>

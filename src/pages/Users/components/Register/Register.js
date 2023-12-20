@@ -1,4 +1,4 @@
-import React, { memo, useEffect } from "react";
+import React, { memo, useEffect, useRef } from "react";
 import {
   Button,
   Modal,
@@ -11,72 +11,93 @@ import {
   message,
 } from "antd";
 import dayjs from "dayjs";
-import { dateFormat } from "../../../../utils/constants/dateFormat";
 import {
   usePostNewUserMutation,
   usePutNewUserMutation,
 } from "../../mutation/userMutation";
+import { dateFormat } from "../../../../utils/constants/dateFormat";
 
 let { Option } = Select;
 let defaultDate = dayjs();
 
-const Register = ({ open, setOpen, userEdit }) => {
+const Register = ({ open, setOpen, userEdit, refetchUsers }) => {
   const [formRegister] = Form.useForm();
-  const { data: dataPost, mutate: postUser } = usePostNewUserMutation();
-  const { data: dataPut, mutate: putUser } = usePutNewUserMutation();
+  const { mutate: postUser } = usePostNewUserMutation(defaultDate.valueOf());
+  const { mutate: putUser } = usePutNewUserMutation(defaultDate.valueOf());
 
   /* */
   useEffect(() => {
     formRegister.setFieldsValue({
       id: userEdit.id || 0,
-      name: userEdit.name,
-      password: userEdit.password,
-      confirm: userEdit.password,
-      email: userEdit.email,
-      phone: userEdit.phone,
-      gender: userEdit.gender ? true : false,
-      role: userEdit.role,
+      name: userEdit?.name,
+      password: userEdit?.password,
+      confirm: userEdit?.password,
+      email: userEdit?.email,
+      phone: userEdit?.phone,
+      gender: userEdit?.gender ? true : false,
+      role: userEdit?.role,
       birthday: dayjs(userEdit?.birthday),
     });
   }, [userEdit]);
 
   const handleSubmit = async (data) => {
-    try {
-      let newUser = {
-        ...data,
-        birthday: dayjs(data.birthday).format(dateFormat),
-      };
+    let newUser = {
+      ...data,
+      birthday: dayjs(data.birthday).format(dateFormat),
+    };
 
-      // Post || Put user
-      newUser.id === 0 ? postUser(newUser) : putUser(newUser);
+    // Post || Put user
+    newUser.id === 0
+      ? postUser(newUser, {
+          onSuccess: (ress) => {
+            /* Render Message in here */
+            message.success("Add User Successfully");
 
-      // Clear Form
-      formRegister.resetFields([
-        "name",
-        "password",
-        "confirm",
-        "email",
-        "phone",
-        "gender",
-        "role",
-      ]);
-      formRegister.setFieldsValue({ id: 0, birthday: defaultDate });
-      /* Render Message in here */
-      // isSuccess
-      if (dataPut?.status === 200 || dataPost?.status === 200)
-        message.open({ type: "success", content: "Successfully added users!" });
+            // Clear Form
+            formRegister.resetFields([
+              "name",
+              "password",
+              "confirm",
+              "email",
+              "phone",
+              "gender",
+              "role",
+            ]);
 
-      // isError
-      let errorMessage =
-        dataPost?.response?.data.content || dataPut?.response?.data.content;
-      if (dataPost?.response !== undefined || dataPut?.response !== undefined)
-        message.open({ type: "error", content: errorMessage });
+            formRegister.setFieldsValue({ id: 0, birthday: defaultDate });
+            refetchUsers();
+            // Clode Modal
+            setOpen(false);
+          },
+          onError: (err) => {
+            message.error(`Failed to add the user `);
+          },
+        })
+      : putUser(newUser, {
+          onSuccess: (ress) => {
+            /* Render Message in here */
+            message.success("Update User Successfully");
 
-      // Clode Modal
-      setOpen(false);
-    } catch (error) {
-      console.error(error);
-    }
+            // Clear Form
+            formRegister.resetFields([
+              "name",
+              "password",
+              "confirm",
+              "email",
+              "phone",
+              "gender",
+              "role",
+            ]);
+
+            formRegister.setFieldsValue({ id: 0, birthday: defaultDate });
+            refetchUsers();
+            // Clode Modal
+            setOpen(false);
+          },
+          onError: (err) => {
+            message.error(`Failed to update the user `);
+          },
+        });
   };
 
   const handleCancel = () => {
@@ -91,7 +112,7 @@ const Register = ({ open, setOpen, userEdit }) => {
       "gender",
       "role",
     ]);
-    formRegister.setFieldsValue({ id: 0, birthday: defaultDate });
+    formRegister.setFieldValue("id", 0);
   };
 
   return (
@@ -127,12 +148,24 @@ const Register = ({ open, setOpen, userEdit }) => {
         style={{ minWidth: "250px", maxWidth: "400px" }}
       >
         {/* id */}
-        <Form.Item name="id" rules={[]}>
+        <Form.Item name="id">
           <Input className="hidden" type="text" disabled />
         </Form.Item>
         {/* Name */}
-        <Form.Item name="name" label="Name" rules={[]}>
-          <Input type="text" />
+        <Form.Item
+          name="name"
+          label="Name"
+          rules={[
+            {
+              required: true,
+              message: "Please input your Name",
+            },
+          ]}
+        >
+          <Input
+            addonBefore={<i className="fa-regular fa-address-card mr-1"></i>}
+            type="text"
+          />
         </Form.Item>
         <Row>
           <Col className="pr-1 w-[50%]">
@@ -148,7 +181,9 @@ const Register = ({ open, setOpen, userEdit }) => {
               ]}
               hasFeedback
             >
-              <Input.Password />
+              <Input.Password
+                addonBefore={<i className="fa-solid fa-lock mr-1"></i>}
+              />
             </Form.Item>
           </Col>
           {/* Confirm Password */}
@@ -177,14 +212,27 @@ const Register = ({ open, setOpen, userEdit }) => {
                 }),
               ]}
             >
-              <Input.Password />
+              <Input.Password
+                addonBefore={<i className="fa-solid fa-lock mr-1"></i>}
+              />
             </Form.Item>
           </Col>
         </Row>
 
         {/* Email */}
-        <Form.Item name="email" label="Email : " rules={[{ required: true }]}>
-          <Input />
+        <Form.Item
+          name="email"
+          label="Email : "
+          rules={[
+            { required: true, message: "Please input your Email!" },
+            { type: "email", message: "The input is not valid E-mail!" },
+          ]}
+        >
+          <Input
+            addonBefore={
+              <i className="fa-solid fa-envelope-circle-check mr-1"></i>
+            }
+          />
         </Form.Item>
 
         <Row>
@@ -193,16 +241,19 @@ const Register = ({ open, setOpen, userEdit }) => {
             <Form.Item
               name="phone"
               label="Phone Number : "
-              rules={
-                [
-                  // {
-                  //   required: true,
-                  //   message: "Please input your phone number!",
-                  // },
-                ]
-              }
+              rules={[
+                {
+                  pattern:
+                    /\+?\d{1,4}?[-.\s]?\(?\d{1}?\)?[-.\s]?\d{1,3}[-.\s]?\d{1,3}[-.\s]?\d{1,3}/g,
+                  message: "The input is not valid Phone!",
+                },
+              ]}
             >
-              <Input />
+              <Input
+                addonBefore={
+                  <i className="fa-solid fa-mobile-screen-button mr-1"></i>
+                }
+              />
             </Form.Item>
           </Col>
 
@@ -219,7 +270,11 @@ const Register = ({ open, setOpen, userEdit }) => {
                 },
               ]}
             >
-              <DatePicker style={{ width: "100%" }} format={dateFormat} />
+              <DatePicker
+                suffixIcon={<i className="fa-solid fa-cake-candles mr-1"></i>}
+                style={{ width: "100%" }}
+                format={dateFormat}
+              />
             </Form.Item>
           </Col>
         </Row>
@@ -237,7 +292,10 @@ const Register = ({ open, setOpen, userEdit }) => {
                 },
               ]}
             >
-              <Select defaultDate={true} placeholder="select your gender">
+              <Select
+                menuItemSelectedIcon={<i className="fa-solid fa-check"></i>}
+                placeholder="select your gender"
+              >
                 <Option value={true}>Male</Option>
                 <Option value={false}>Female</Option>
               </Select>
@@ -256,7 +314,10 @@ const Register = ({ open, setOpen, userEdit }) => {
                 },
               ]}
             >
-              <Select defaultValue={"ADMIN"} placeholder="select your role">
+              <Select
+                menuItemSelectedIcon={<i className="fa-solid fa-check"></i>}
+                placeholder="select your role"
+              >
                 <Option value="ADMIN">Admin</Option>
                 <Option disabled value="USER">
                   User

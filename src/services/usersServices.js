@@ -13,9 +13,9 @@ export const usersApi = {
   },
 
   /* Delete User by Id */
-  // https://airbnbnew.cybersoft.edu.vn/api/users/4079
+  // https://airbnbnew.cybersoft.edu.vn/api/users?id=4375
   deleteUserById: async (id = 0) => {
-    return await http.delete(`/users/${id}`);
+    return await http.delete(`/users?id=${id}`);
   },
 
   /* Put User */
@@ -31,15 +31,18 @@ export const usersApi = {
 
   /* Search User by Name */
   // https://airbnbnew.cybersoft.edu.vn/api/users/search/Nguyen%20
-  searchUserByName: async (name) => {
-    return await http.get(
-      `https://airbnbnew.cybersoft.edu.vn/api/users/search/${name}`
-    );
+  searchUsersByName: async (name) => {
+    return await http.get(`/users/search/${name}`);
   },
 
   /* Get Details User by Id */
   // https://airbnbnew.cybersoft.edu.vn/api/users/4258
   getProfilesUserById: async (id) => {
-    return await http.get(`https://airbnbnew.cybersoft.edu.vn/api/users/${id}`);
+    return await http.get(`/users/${id}`);
+  },
+
+  //https://airbnbnew.cybersoft.edu.vn/api/users/upload-avatar
+  uploadAvatar: async (formData) => {
+    return await http.post("/users/upload-avatar", formData);
   },
 };

@@ -1,31 +1,42 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import dayjs from "dayjs";
 import { Upload, Collapse, DatePicker } from "antd";
 import { UploadOutlined } from "@ant-design/icons";
 import { useParams } from "react-router-dom";
 import { message } from "antd";
 /* */
+import avatar from "../../assets/image/AvatarUser.png";
 import "./ProfilesUser.scss";
 import { useGetProfilesUserById } from "./query/profilesUser";
-import { usePutNewUserMutation } from "../Users/mutation/userMutation";
+import {
+  usePutNewUserMutation,
+  usePostAvavtarUser,
+} from "../Users/mutation/userMutation";
 
 export default function ProfilesUser() {
   const { idUser } = useParams();
-  const profilesRef = useRef({});
-  const newProfilesRef = useRef({});
   const [isEdit, setIsEdit] = useState(true);
+  const newProfilesRef = useRef({});
+  const [profiles, setProfiles] = useState({});
 
   /* Query */
   const { data } = useGetProfilesUserById(idUser);
-  profilesRef.current =
-    data?.data?.content !== undefined ? data.data.content : {};
 
   /* Mutation */
-  const { data: dataProfiles, mutate } = usePutNewUserMutation();
+  const { data: dataProfiles, mutate } = usePutNewUserMutation(idUser);
+
+  const { data: dataAvatar, mutate: updateAvatar } = usePostAvavtarUser();
+
+  console.log(dataAvatar);
+
+  useEffect(() => {
+    data?.data?.content && setProfiles(data?.data?.content);
+  }, [data]);
 
   const beforeUpload = async (file) => {
     // post new Avart in here...
 
+    updateAvatar(file);
     return false;
   };
 
@@ -37,7 +48,7 @@ export default function ProfilesUser() {
     if (event.target.value === "") return;
 
     newProfilesRef.current = {
-      ...profilesRef.current,
+      ...profiles,
       ...newProfilesRef.current,
       [event.target.name]: event.target.value,
     };
@@ -49,7 +60,7 @@ export default function ProfilesUser() {
     let gender = event.target.value === "male" ? true : false;
 
     newProfilesRef.current = {
-      ...profilesRef.current,
+      ...profiles,
       ...newProfilesRef.current,
       [event.target.name]: gender,
     };
@@ -59,7 +70,7 @@ export default function ProfilesUser() {
     if (dateString === "") return;
 
     newProfilesRef.current = {
-      ...profilesRef.current,
+      ...profiles,
       ...newProfilesRef.current,
       birthday: dateString,
     };
@@ -92,18 +103,14 @@ export default function ProfilesUser() {
         <div className="profile-image w-[130px] h-[130px] rounded-[100%] overflow-hidden mb-2">
           <img
             className="object-cover w-full h-full"
-            src={
-              profilesRef.current?.avatar
-                ? profilesRef.current?.avatar
-                : "https://jumpcloud.com/blog/wp-content/uploads/2017/09/User-Square-Icon.png"
-            }
+            src={profiles?.avatar ? profiles?.avatar : avatar}
             alrt="avatar"
           />
         </div>
         <Upload.Dragger
           action={""}
           name="avatar"
-          accept=".png,.jpeg"
+          accept=".png,.jpg"
           maxCount={1}
           showUploadList={true}
           beforeUpload={beforeUpload}
@@ -113,7 +120,7 @@ export default function ProfilesUser() {
           }}
           className="btn-editAvatar block mb-3"
         >
-          {/* <UploadOutlined className="mr-1" /> */}
+          <UploadOutlined className="mr-1" />
           <span className="hover:underline">Update avatar</span>
         </Upload.Dragger>
 
@@ -125,7 +132,7 @@ export default function ProfilesUser() {
               alt="check"
             />
           </div>
-          <h4 className="font-semibold text-xl w-[50%] ">
+          <h4 className="font-semibold pl-2 text-xl w-full md:w-[50%] lg:w-[50%] ">
             Identity verification
           </h4>
         </div>
@@ -176,17 +183,18 @@ export default function ProfilesUser() {
 
         <dl className="divide-y">
           {/* Required information */}
-          <div className="info-required px-4  py-3 sm:grid sm:grid-cols-3 sm:gap-4  ">
-            <dt className="title ">Required information</dt>
-            <dd className="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
-              <form>
+          <div className="info-required px-4 py-3 flex flex-col md:flex-col lg:flex-row   ">
+            <p className="title ">Required information</p>
+            <div className="w-full t-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0 lg:pl-4">
+              <form className="w-full">
                 <div className="form-group flex flex-col">
                   <label htmlFor="name" className="label">
+                    <i className="fa-regular fa-address-card mr-1"></i>
                     Account :
                   </label>
                   <input
                     onKeyUp={(event) => handleChangeProfiles(event)}
-                    defaultValue={profilesRef.current?.name}
+                    defaultValue={profiles?.name}
                     disabled={isEdit}
                     name="name"
                     className="form-controls"
@@ -195,12 +203,13 @@ export default function ProfilesUser() {
                 </div>
                 <div className="form-group flex flex-col">
                   <label htmlFor="email" className="label">
+                    <i className="fa-solid fa-envelope-circle-check mr-1"></i>
                     Email :
                   </label>
                   <input
                     onKeyUp={(event) => handleChangeProfiles(event)}
                     disabled={isEdit}
-                    defaultValue={profilesRef.current?.email}
+                    defaultValue={profiles?.email}
                     className="form-controls"
                     name="email"
                     type="text"
@@ -208,18 +217,21 @@ export default function ProfilesUser() {
                 </div>
 
                 <div className="form-group flex flex-col">
-                  <label className="label">Password : </label>
+                  <label className="label">
+                    <i className="fa-solid fa-lock mr-1"></i>
+                    Password :
+                  </label>
                   <input
                     onKeyUp={(event) => handleChangeProfiles(event)}
                     disabled={isEdit}
-                    defaultValue={profilesRef.current?.password}
+                    defaultValue={profiles?.password}
                     className="form-controls"
                     name="password"
                     type="text"
                   />
                 </div>
               </form>
-            </dd>
+            </div>
           </div>
 
           {/* Basic Infomation */}
@@ -235,11 +247,12 @@ export default function ProfilesUser() {
                   <form>
                     <div className="form-group flex flex-col">
                       <label className="label" htmlFor="phone">
+                        <i className="fa-solid fa-mobile-screen-button mr-1"></i>
                         Phone :
                       </label>
                       <input
                         onKeyUp={(event) => handleChangeProfiles(event)}
-                        defaultValue={profilesRef.current?.phone}
+                        defaultValue={profiles?.phone}
                         disabled={isEdit}
                         className="form-controls"
                         name="phone"
@@ -248,11 +261,12 @@ export default function ProfilesUser() {
                     </div>
                     <div className="form-group flex flex-col">
                       <label className="label" htmlFor="gender">
+                        <i className="fa-solid fa-people-arrows mr-1"></i>
                         Gender :
                       </label>
                       <select
                         onChange={(event) => handleChangeGender(event)}
-                        defaultValue={profilesRef.current?.gender}
+                        defaultValue={profiles?.gender}
                         disabled={isEdit}
                         name="gender"
                         className="form-controls"
@@ -263,11 +277,12 @@ export default function ProfilesUser() {
                     </div>
                     <div className="form-group flex flex-col">
                       <label className="label" htmlFor="birthday">
+                        <i className="fa-solid fa-cake-candles mr-1"></i>
                         Birthday :
                       </label>
                       <DatePicker
                         onChange={handleChangeBirthday}
-                        defaultValue={dayjs(profilesRef.current?.birthday)}
+                        defaultValue={dayjs(profiles?.birthday)}
                         disabled={isEdit}
                         name="birthday"
                         format={"DD/MM/YYYY"}
@@ -315,7 +330,10 @@ export default function ProfilesUser() {
                   {/* Facebook , Twitter, Whatsapp */}
                   <form>
                     <div className="form-group flex flex-col">
-                      <label className="label">Facebook : </label>
+                      <label className="label">
+                        <i className="fa-brands fa-meta mr-1"></i>
+                        Facebook :{" "}
+                      </label>
 
                       {isEdit && (
                         <a
@@ -336,7 +354,10 @@ export default function ProfilesUser() {
                       )}
                     </div>
                     <div className="form-group flex flex-col">
-                      <label className="label">Twitter : </label>
+                      <label className="label">
+                        <i className="fa-brands fa-twitter mr-1"></i>
+                        Twitter :
+                      </label>
                       {isEdit && (
                         <a
                           className="text-gray-500 leading-[1.5rem] pl-[0.5rem]"
@@ -356,7 +377,10 @@ export default function ProfilesUser() {
                       )}
                     </div>
                     <div className="form-group flex flex-col">
-                      <label className="label">Whatsapp:</label>
+                      <label className="label">
+                        <i className="fa-brands fa-square-whatsapp mr-1"></i>
+                        Whatsapp:
+                      </label>
                       {isEdit && (
                         <a
                           className="text-gray-500 leading-[1.5rem] pl-[0.5rem]"
