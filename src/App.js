@@ -9,6 +9,7 @@ import Admin from "./pages/Admin/Admin";
 import Users from "./pages/Users/Users";
 import DetailRoom from "./pages/DetailRoom/DetailRoom";
 import Account from "./pages/Account/Account";
+import Login from "./pages/Login/Login"
 import ProfilesUser from "./pages/ProfilesUser/ProfilesUser";
 import Locations from "./pages/Location/Locations";
 import Booking from "./pages/Booking/Booking";
@@ -26,6 +27,7 @@ function App() {
           <UserLayout>
             <Routes>
               <Route path="" element={<Home />} />
+              {/* <Route path="/login" element={<Login />} /> */}
               <Route path="/detail/:idRoom" element={<DetailRoom />} />
               <Route path="/account/:idUser" element={<Account />} />
               <Route path="/profiles/:idUser" element={<ProfilesUser />} />

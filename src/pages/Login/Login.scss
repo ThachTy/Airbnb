@@ -1,0 +1,53 @@
+$pink: #ff385c;
+.signin {
+  padding-top: 160px;
+  padding-bottom: 160px;
+  align-items: center;
+  width: 50%;
+  margin: 0 auto;
+  border-radius: 20px;
+  h2 {
+    font-weight: bold;
+
+    text-align: center;
+    color: $pink;
+  }
+  .form-signin {
+    width: 50%;
+    margin: 0 auto;
+    padding: 20px;
+    .form-item {
+      margin: 30px 0;
+      input{
+        border: 1px solid $pink;
+        border-radius: 10px;
+      }
+      input:focus{
+        outline:none;
+      }
+      
+      span{
+        color: $pink;
+        font-weight: 600;
+      }
+      .email,
+      .password {
+        color: $pink;
+        font-weight: bold;
+      }
+    }
+    .btn-signin {
+      width: 100%;
+      border-radius: 20px;
+      background-color: $pink;
+      border: 1px solid $pink;
+      padding: 10px;
+      color: white;
+    }
+    .error-msg{
+      color: $pink;
+      text-align: center;
+      padding: 10px;
+    }
+  }
+}
