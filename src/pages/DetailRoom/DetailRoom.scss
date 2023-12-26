@@ -204,7 +204,13 @@
                     @apply w-full flex flex-col border border-solid border-gray-400 rounded-md;
 
                     .datePicker {
-                        @apply flex w-full border-b border-solid border-gray-400;
+                        @apply flex border-b border-solid border-gray-400;
+
+                        .k-dateinput {
+                            input {
+                                @apply w-full bg-transparent hover:cursor-pointer;
+                            }
+                        }
                     }
                 }
 
@@ -302,5 +308,17 @@
 }
 
 .k-animation-container {
-    @apply bg-purple-400;
+    @apply p-4 rounded-lg bg-purple-400;
+
+    .k-calendar-view {
+        @apply w-full;
+    }
+
+    .k-calendar-table.k-content {
+        @apply w-full;
+
+        .k-calendar-tbody {
+            @apply text-center;
+        }
+    }
 }

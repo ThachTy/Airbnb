@@ -5,8 +5,8 @@ export default function CustomStartDate(props) {
     const style = {
         color: props.value !== null ? "green" : "red",
     };
-    return <div className='border-r text-[14px] border-solid border-gray-400 rounded-tl-md w-full p-2 cursor-pointer hover:bg-gray-100'>
+    return <div className='border-r text-[14px] border-solid border-gray-400 rounded-tl-md w-1/2 p-2 cursor-pointer hover:bg-gray-100'>
         <span style={style} className='text-[12px] uppercase font-semibold'>Ngày bắt đầu</span> <br />
-        <DateInput {...props} label={undefined} />
+        <DateInput {...props} label={undefined} className='w-1/2' />
     </div>
 }
