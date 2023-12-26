@@ -8,12 +8,17 @@ import CustomStartDate from "./CustomStartDate";
 import CustomEndDate from "./CustomEndDate";
 import { detailRoomUtils } from "../../utils/constants";
 import { Button, List, Skeleton } from "antd";
+import { format } from 'date-fns';
+import { bookingApi } from '../../services/bookingServices'
+import { useSelector } from "react-redux";
 
 
 export default function DetailRoom() {
   let count = 3;
   let maxList = 0;
   const { idRoom } = useParams();
+
+  const user = useSelector((state) => state.userReducer.user);
 
   const [detailRoom, setDetailRoom] = useState(null);
   const [isClose, setIsClose] = useState(true);
@@ -74,6 +79,12 @@ export default function DetailRoom() {
   });
 
 
+  const convertDate = (date) => {
+    return format(date, "yyyy-MM-dd'T'HH:mm:ss.SSSxxx");
+  };
+
+  console.log('date', convertDate(value.start))
+
   const handleChange = (event) => {
     setValue(event.value);
   };
@@ -104,18 +115,6 @@ export default function DetailRoom() {
   }
 
   const converDetailComments = (comments, initSlice = 0, upperSlice = 10) => {
-    //comments <= 10 => rtn;
-    // comments > 10 => 1 times more = 10 comments
-    //vd: 63 comments => 6 times more, du 3
-    //maxcomment = comments.slice(0, 9)
-    //maxcomment = comments.slice(10, 21) 
-    //=> check(maxcomments.l + 4(du) == comments.l) 
-    //? comments.slice(maxcomments.l + 1, comments.l); 
-    //: comments.slice(maxcomments.l, maxcomments.l + 9);
-    //maxcomment = comments.slice(22, 32)
-    //maxcomment = comments.slice(33, 43)
-    //maxcomment = comments.slice(44, 54)
-    //maxcomment = comments.slice(55, 64)
     if (comments.length <= 10) return comments;
     return comments.slice(initSlice, upperSlice);
   }
@@ -152,14 +151,6 @@ export default function DetailRoom() {
     let du = comments.length % 10;
     let upCount = maxComments.length + 9;
     console.log({ up: upCount, maxComments })
-
-    // if (maxComments.length + du >= comments.length) {
-    //   console.log('du')
-    //   setmaxComments(
-    //     maxComments.concat(converDetailComments(comments, maxComments.length, comments.length))
-    //   )
-    // } else {
-    // }
     setmaxComments(
       maxComments.concat(converDetailComments(comments, maxComments.length, upCount)) //maxComments.length + 1 
     )
@@ -171,6 +162,20 @@ export default function DetailRoom() {
 
   const loadMore = <button className="detailroom-btn" onClick={onLoadMore}>loading more</button>
   const loadMoreCommentsBtn = <button className="detailroom-comments-btn" onClick={loadMoreComments}>Xem thêm bình luận</button>
+
+  //booking
+  const handleBooking = async (maNguoiDung, maPhong, ngayDen, ngayDi, soLuongKhach) => {
+    if (!user) {
+      alert('dang nhap truoc khi dat phong');
+      return;
+    }
+    try {
+      const result = await bookingApi.postBooking({ maNguoiDung, maPhong, ngayDen, ngayDi, soLuongKhach });
+      console.log('result-booking', result);
+    } catch (error) {
+      console.log(error)
+    }
+  }
 
   return (
     detailRoom && (
@@ -279,11 +284,11 @@ export default function DetailRoom() {
                 </div>
               </div>
               <div className="detailroom-booking__btn-section">
-                <button className="detailroom-booking__btnbooking">Đặt phòng</button>
+                <button className="detailroom-booking__btnbooking" onClick={() => handleBooking(4826, idRoom, convertDate(value.end), convertDate(value.start), khach)}>Đặt phòng</button>
               </div>
               <div className="detailroom-booking__total-section">
                 <div className="detailroom-booking__totalprice">
-                  <p> $<span>{detailRoom.giaTien}</span> x <span>${value && calculateDaysDifference()}</span> đêm</p>
+                  <p> $<span>{detailRoom.giaTien}</span> x <span>{value && calculateDaysDifference()}</span> đêm</p>
                   <p>${value && calTotalPrice(detailRoom.giaTien, calculateDaysDifference())}</p>
                 </div>
                 <div className="detailroom-booking__totalfee">
