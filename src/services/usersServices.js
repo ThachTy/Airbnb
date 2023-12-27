@@ -41,6 +41,7 @@ export const usersApi = {
     return await http.get(`/users/${id}`);
   },
 
+  /* Post Avatar User*/
   //https://airbnbnew.cybersoft.edu.vn/api/users/upload-avatar
   uploadAvatar: async (formData) => {
     return await http.post("/users/upload-avatar", formData);

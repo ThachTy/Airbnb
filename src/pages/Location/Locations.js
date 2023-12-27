@@ -73,15 +73,6 @@ export default function Locations() {
   // Search
   const hanleSearchByName = async () => {
     console.log("Search");
-    // if (inputSearchRef.current.input.value === "") {
-    //   const locations = queryClient.getQueryData(["getLocationsPerPage"]);
-    //   setLocations(locations.data);
-    //   totalLocationsRef.current = locations.totalRow;
-    //   return;
-    // }
-    // let valueSearch = stringToSlug(inputSearchRef.current.input.value);
-    // let { data } = await fetchSearchLocationsByName(valueSearch);
-    // data && setLocations(data.content);
   };
 
   /* Handle */
@@ -165,6 +156,7 @@ export default function Locations() {
               className="input-search"
               placeholder="Enter your account..."
               type="text"
+              disabled
             />
           </Form.Item>
           <Button

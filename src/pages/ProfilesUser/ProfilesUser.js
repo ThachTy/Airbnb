@@ -20,24 +20,38 @@ export default function ProfilesUser() {
   const [profiles, setProfiles] = useState({});
 
   /* Query */
-  const { data } = useGetProfilesUserById(idUser);
+  const { data, refetch } = useGetProfilesUserById(idUser);
 
   /* Mutation */
   const { data: dataProfiles, mutate } = usePutNewUserMutation(idUser);
 
-  const { data: dataAvatar, mutate: updateAvatar } = usePostAvavtarUser();
-
-  console.log(dataAvatar);
+  const { mutate: updateAvatar } = usePostAvavtarUser();
 
   useEffect(() => {
     data?.data?.content && setProfiles(data?.data?.content);
   }, [data]);
 
   const beforeUpload = async (file) => {
-    // post new Avart in here...
+    if (file.size > 1024000) {
+      message.error("Image size < 1Mb");
+      return;
+    }
 
-    updateAvatar(file);
-    return false;
+    if (!file.type.includes("image")) {
+      message.error("Files Invalid");
+      return;
+    }
+
+    // post new Avart in here...
+    let formData = new FormData();
+    formData.append("formFile", file);
+
+    updateAvatar(formData, {
+      onSuccess: (_) => {
+        message.success("Successfull");
+        refetch();
+      },
+    });
   };
 
   const handleEdit = () => {
@@ -108,20 +122,16 @@ export default function ProfilesUser() {
           />
         </div>
         <Upload.Dragger
-          action={""}
+          // action={}
           name="avatar"
           accept=".png,.jpg"
           maxCount={1}
-          showUploadList={true}
+          showUploadList={false}
           beforeUpload={beforeUpload}
-          iconRender={() => <span className="text-green-600">123</span>}
-          onPreview={() => {
-            message.open({ type: "loading", content: "Event Upload" });
-          }}
           className="btn-editAvatar block mb-3"
         >
           <UploadOutlined className="mr-1" />
-          <span className="hover:underline">Update avatar</span>
+          <span className="hover:underline px-2">Upload</span>
         </Upload.Dragger>
 
         <div className="flex flex-row justify-center items-center mb-4">
