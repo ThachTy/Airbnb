@@ -14,6 +14,7 @@ import Locations from "./pages/Location/Locations";
 import Booking from "./pages/Booking/Booking";
 import NotFound from "./components/NotFound/NotFound";
 import RoomManagement from "./pages/RoomManagement/RoomManagement";
+import Register from "./pages/Register/Register";
 import Test from "./components/Test";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 
@@ -58,6 +59,14 @@ function App() {
                 </UserLayout>
               }
             />
+            <Route
+              path="/register"
+              element={
+                <UserLayout>
+                  <Register />
+                </UserLayout>
+              }
+            ></Route>
 
             {/* Admin */}
             <Route path="/admin" element={<AdminLayout />}>
