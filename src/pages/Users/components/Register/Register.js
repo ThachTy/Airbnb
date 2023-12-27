@@ -1,4 +1,4 @@
-import React, { memo, useEffect, useRef } from "react";
+import React, { memo, useEffect } from "react";
 import {
   Button,
   Modal,
@@ -331,4 +331,3 @@ const Register = ({ open, setOpen, userEdit, refetchUsers }) => {
   );
 };
 export default memo(Register);
-

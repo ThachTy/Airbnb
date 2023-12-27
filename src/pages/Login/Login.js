@@ -3,14 +3,29 @@ import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import { Navigate, useSearchParams } from "react-router-dom";
 import { login } from "../../ReduxToolkit/Slice/userSlice";
+import { usersApi } from "../../services/usersServices";
+import { Modal } from "antd";
+
 import "./Login.scss";
 
-const onFinish = (values) => {
+const Login = () => {
+  const [searchParams, setSearchParams] = useSearchParams();
+  const navigate = Navigate();
+
+  const dispatch = useDispatch();
+  const { user, loading, error } = useSelector((state) => state.auth);
+  const { register, handleSubmit, formState } = useForm({
+    defaultValue: { email: "", password: "" },
+    mode: "onTouched",
+  });
+  const { errors } = formState;
+
+  const onFinish = (values) => {
     console.log("Success:", values);
-    userService
+
+    usersApi
       .dangNhap(values)
       .then((res) => [
-        console.log("user", res),
         localStorage.setItem("user", JSON.stringify(res.data)),
         dispatch(login(res.data)),
         Modal.success({
@@ -21,24 +36,13 @@ const onFinish = (values) => {
       ])
       .catch((err) => console.log(err));
   };
+
   const onFinishFailed = (errorInfo) => {
     console.log("Failed:", errorInfo);
   };
 
-
-const Login = () => {
-  const [searchParams, setSearchParams] = useSearchParams();
-
-  const dispatch = useDispatch();
-  const { user, loading, error } = useSelector((state) => state.auth);
-  const { register, handleSubmit, formState } = useForm({
-    defaultValue: { email: "", password: "" },
-    mode: "onTouched",
-  });
-  const { errors } = formState;
-
   const onSubmit = (values) => {
-    dispatch(signin(values));
+    // dispatch(signin(values));
   };
   if (user) {
     alert("Đăng nhập thành công");

@@ -1,6 +1,10 @@
 import { http } from "./config";
 
 export const usersApi = {
+  dangNhap: (params) => {
+    return http.get();
+  },
+
   /* Get Users by Perpage*/
   getUsersByPerPage: async (numberPage = 1, pageSize) => {
     return await http
