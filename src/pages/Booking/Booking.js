@@ -1,10 +1,9 @@
 import React, { useEffect, useRef, useState } from "react";
-import { Pagination, message, Form, Button, InputNumber, Input } from "antd";
+import { Pagination, message, Form, Button, Input } from "antd";
 import dayjs from "dayjs";
 import "./Booking.scss";
 import Loading from "../../components/Loading/Loading.js";
 import Register from "./components/Register/Register.js";
-// import { stringToSlug } from "../../utils/method.js";
 import { queryClient } from "../../App.js";
 import { dateFormat } from "../../utils/constants/dateFormat.js";
 import { useDeleteBookingMutation } from "./mutation/bookingMutation.js";
@@ -29,13 +28,34 @@ export default function Booking() {
   /* */
   useEffect(() => {
     if (responseBookings !== undefined) {
-      setBookings(responseBookings);
+      bookingsByPage(responseBookings, 1, 10);
     }
   }, [responseBookings]);
 
   useEffect(() => {
     refetch();
   }, [page]);
+
+  const bookingsByPage = (list, currentPage, pageSize) => {
+    if (list.length === 0) return;
+    let sliceBookings = [];
+    let start = (currentPage - 1) * pageSize;
+    let end = currentPage * pageSize;
+
+    // Start
+    if (currentPage === 1) sliceBookings = list.slice(0, pageSize);
+
+    // Between
+    if (currentPage > 1 && currentPage < Math.ceil(list.length / pageSize)) {
+      sliceBookings = list.slice(start, end);
+    }
+    // End
+    if (currentPage === Math.ceil(list.length / pageSize)) {
+      sliceBookings = list.slice(start, list.length);
+    }
+
+    setBookings(sliceBookings);
+  };
 
   /* Handle */
   // Delete
@@ -81,6 +101,7 @@ export default function Booking() {
   // ChangePage
   const handelChangePage = (numberPage, pageSize) => {
     setPage({ currentPage: numberPage !== 0 ? numberPage : 1, pageSize });
+    bookingsByPage(responseBookings, numberPage, pageSize);
   };
 
   // Edit
@@ -158,7 +179,7 @@ export default function Booking() {
               min={0}
               ref={inputSearchRef}
               className="input-search"
-              placeholder="Enter your User ..."
+              placeholder="Enter User code..."
             />
           </Form.Item>
           <Button

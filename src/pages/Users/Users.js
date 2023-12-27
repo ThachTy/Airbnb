@@ -26,11 +26,7 @@ export default function Users() {
   } = useGetUsersPerPage(page.currentPage, page.pageSize);
 
   /* Mutation */
-  const {
-    mutate,
-    data: userResponse,
-    isLoading: deleteLoading,
-  } = useDeleteUserMutation();
+  const { mutate, isLoading: deleteLoading } = useDeleteUserMutation();
 
   /* */
   useEffect(() => {
@@ -121,7 +117,7 @@ export default function Users() {
           </td>
           <td className="cell pl-[1rem]">{user?.name}</td>
           <td className="cell pl-[1rem]">{user?.email}</td>
-          <td className="cell cell-center">{user?.role}</td>
+          <td className="cell cell-center uppercase">{user?.role}</td>
           <td className="cell cell-center">
             <Link className="btn btn-details" to={`/profiles/${user.id}`}>
               Details
@@ -162,7 +158,7 @@ export default function Users() {
               autoFocus
               ref={inputSearchRef}
               className="input-search"
-              placeholder="Enter your account..."
+              placeholder="Enter Account name..."
               type="text"
             />
           </Form.Item>

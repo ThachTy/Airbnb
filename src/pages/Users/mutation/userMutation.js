@@ -24,7 +24,7 @@ export const usePostAvavtarUser = () => {
 
   return useMutation({
     mutationKey: ["postAvatarUser", number],
-    mutationFn: (variables) => updateAvatarUser(variables),
+    mutationFn: (avatar) => updateAvatarUser(avatar),
   });
 };
 

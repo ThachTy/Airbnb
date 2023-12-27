@@ -6,6 +6,7 @@ export const useGetAllBookings = () => {
   return new useQuery({
     queryKey: ["getAllBookings"],
     queryFn: () => fetchAllBookings(),
+    refetchOnWindowFocus: false,
   });
 };
 
