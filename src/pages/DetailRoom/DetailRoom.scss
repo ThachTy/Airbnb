@@ -13,7 +13,7 @@
     .detailroom__title {
         font-weight: 600;
         font-size: 1.875rem;
-        letter-spacing: 0.1em
+        letter-spacing: 0.1em;
     }
 
     .detailroom__location {
@@ -22,7 +22,6 @@
         align-items: center;
 
         p {
-            // @apply underline text-sm font-normal tracking-widest mx-1;
             text-decoration: underline;
             font-size: 0.875rem;
             font-weight: 400;
@@ -32,7 +31,6 @@
 
         div {
             span {
-                // @apply text-sm font-semibold py-1 px-2 rounded-lg transition-all;
                 font-size: 0.875rem;
                 font-weight: 600;
                 padding: 0.25rem 0.5rem;
@@ -42,7 +40,8 @@
                 transition-duration: 150ms;
 
                 &:hover {
-                    @apply bg-gray-100;
+                    background-color: #f0f4f8;
+                    /* Example background color */
                     cursor: pointer;
                 }
             }
@@ -50,39 +49,29 @@
     }
 
     .detailroom__img-section {
-        // @apply mt-5 grid grid-cols-4 grid-rows-2 gap-5 h-[380px];
         margin-top: 1.25rem;
         display: grid;
         grid-template-columns: repeat(4, minmax(0, 1fr));
         grid-template-rows: repeat(2, minmax(0, 1fr));
-        gap: 1.25rem
-            /* 20px */
-        ;
+        gap: 1.25rem;
         height: 380px;
 
         .detailroom__img-item {
             img {
-                // @apply w-full h-full object-cover;
                 width: 100%;
                 height: 100%;
                 object-fit: cover;
             }
 
             &:first-child {
-                // @apply col-span-2 row-span-2;
                 grid-column: span 2 / span 2;
                 grid-row: span 2 / span 2;
 
                 img {
-                    // @apply w-full object-cover rounded-l-xl rounded-r-none;
                     width: 100%;
                     object-fit: cover;
-                    border-top-left-radius: 0.75rem
-                        /* 12px */
-                    ;
-                    border-bottom-left-radius: 0.75rem
-                        /* 12px */
-                    ;
+                    border-top-left-radius: 0.75rem;
+                    border-bottom-left-radius: 0.75rem;
                     border-top-right-radius: 0px;
                     border-bottom-right-radius: 0px;
                 }
@@ -90,147 +79,117 @@
 
             &:nth-child(3) {
                 img {
-                    // @apply w-full h-full rounded-tr-xl overflow-hidden;
                     width: 100%;
                     height: 100%;
-                    border-top-right-radius: 0.75rem
-                        /* 12px */
-                    ;
+                    border-top-right-radius: 0.75rem;
                     overflow: hidden;
                 }
             }
 
             &:last-child {
                 img {
-                    // @apply w-full h-full rounded-br-xl overflow-hidden;
                     width: 100%;
                     height: 100%;
-                    border-bottom-right-radius: 0.75rem
-                        /* 12px */
-                    ;
+                    border-bottom-right-radius: 0.75rem;
                     overflow: hidden;
                 }
             }
 
-            // @apply col-span-1;
             grid-column: span 1 / span 1;
         }
-
     }
 
     .detailroom__desc-section {
-        // @apply grid grid-cols-12 gap-10;
         display: grid;
         grid-template-columns: repeat(12, minmax(0, 1fr));
-        gap: 2.5rem
-            /* 40px */
-        ;
+        gap: 2.5rem;
 
         .detailroom__desc-detail {
-            // @apply col-span-8 py-6;
-            padding-top: 1.5rem
-                /* 24px */
-            ;
-            padding-bottom: 1.5rem
-                /* 24px */
-            ;
+            padding-top: 1.5rem;
+            padding-bottom: 1.5rem;
             grid-column: span 8 / span 8;
 
             .detailroom__desc-introduce {
-                // @apply py-4;
-                padding-top: 1rem
-                    /* 16px */
-                ;
-                padding-bottom: 1rem
-                    /* 16px */
-                ;
+                padding-top: 1rem;
+                padding-bottom: 1rem;
                 @include section-underline;
 
                 .detailroom__desc-detail-title {
-                    // @apply text-gray-800;
                     color: rgb(31 41 55);
                     font-weight: 600;
-                    font-size: 1.125rem
-                        /* 18px */
-                    ;
-                    line-height: 1.75rem
-                        /* 28px */
-                    ;
+                    font-size: 1.125rem;
+                    line-height: 1.75rem;
 
-                    .sm\:text-2xl {
-                        font-size: 1.5rem
-                            /* 24px */
-                        ;
-                        line-height: 2rem
-                            /* 32px */
-                        ;
+                    .sm-text-2xl {
+                        font-size: 1.5rem;
+                        line-height: 2rem;
                     }
                 }
 
                 .dedetailroom__desc-detail-totalroom {
-                    // @apply text-sm font-normal tracking-widest text-gray-700;
-                    font-size: 0.875rem
-                        /* 14px */
-                    ;
-                    line-height: 1.25rem
-                        /* 20px */
-                    ;
+                    font-size: 0.875rem;
+                    line-height: 1.25rem;
                     font-weight: 400;
                     letter-spacing: 0.1em;
                     color: rgb(55 65 81);
 
                     span {
-                        // @apply mx-1;
-                        margin-left: 0.25rem
-                            /* 4px */
-                        ;
-                        margin-right: 0.25rem
-                            /* 4px */
-                        ;
+                        margin-left: 0.25rem;
+                        margin-right: 0.25rem;
                     }
                 }
             }
 
             .detailroom__desc-general {
-                @apply py-4;
+                padding: 1rem;
                 @include section-underline;
 
                 .general__item {
-                    @apply flex justify-start items-start mb-5;
+                    display: flex;
+                    justify-content: start;
+                    align-items: start;
+                    margin-bottom: 1.25rem;
 
                     i {
-                        @apply text-2xl;
+                        font-size: 1.5rem;
                     }
 
                     div {
-                        @apply ml-4;
+                        margin-left: 1rem;
 
                         h3 {
-                            @apply font-semibold text-gray-800 text-base sm:text-lg;
+                            font-weight: 600;
+                            color: #1f2937;
+                            font-size: 1rem;
                         }
 
                         p {
                             color: #6b7280;
-                            @apply text-[14px];
+                            font-size: 14px;
                         }
                     }
                 }
             }
 
             .detailroom__desc-intro-web {
-                @apply py-4;
+                padding: 1rem;
                 @include section-underline;
 
                 img {
-                    @apply object-contain mb-4;
+                    object-fit: contain;
+                    margin-bottom: 1rem;
                 }
 
                 p {
-                    @apply mb-4 text-[16px] text-gray-800 tracking-wider;
+                    margin-bottom: 1rem;
+                    font-size: 16px;
+                    color: #1f2937;
+                    letter-spacing: wider;
                 }
 
                 a {
-                    @apply underline font-semibold;
+                    text-decoration: underline;
+                    font-weight: 600;
                 }
             }
 
@@ -238,39 +197,43 @@
                 @include section-underline();
 
                 p {
-                    @apply text-base tracking-wider text-gray-800 mb-4;
+                    font-size: 16px;
+                    letter-spacing: wider;
+                    color: #1f2937;
+                    margin-bottom: 1rem;
                 }
 
                 a {
-                    @apply font-semibold underline;
+                    font-weight: 600;
+                    text-decoration: underline;
                 }
             }
 
             .detailroom-desc-utils {
-                @apply py-5;
+                padding: 1.25rem;
                 @include section-underline();
 
                 p {
-                    @apply font-semibold text-gray-800 text-xl pb-4;
+                    font-weight: 600;
+                    color: #1f2937;
+                    font-size: 1.5rem;
+                    margin-bottom: 1rem;
                 }
 
                 .detailroom-desc-utils-child {
-
-                    // @apply grid grid-cols-2 gap-5;
                     .detailroom-desc-utils-child-list {
-                        @apply border-none;
-
+                        border: none;
 
                         .ant-spin-nested-loading {
-                            @apply p-0;
+                            padding: 0;
 
                             .ant-spin-container {
-                                @apply p-0;
+                                padding: 0;
 
                                 .ant-list-items {
-                                    // display: grid !important;
-
-                                    @apply grid grid-cols-2 border-none;
+                                    display: grid;
+                                    grid-template-columns: repeat(2, minmax(0, 1fr));
+                                    border: none;
 
                                     .ant-list-item.detailroom-desc-utils-child-list-item {
                                         border-block-end: none !important;
@@ -278,82 +241,140 @@
                                 }
                             }
                         }
-
                     }
 
                     button {
-                        @apply mt-4 border border-solid border-gray-900 hover:bg-gray-100 transition-all duration-200 rounded-md px-5 py-3 font-semibold text-base text-gray-800 tracking-wider;
+                        margin-top: 1rem;
+                        border: 1px solid #4b5563;
+                        background-color: transparent;
+                        transition: all 200ms;
+                        border-radius: 0.25rem;
+                        padding: 0.75rem 1.25rem;
+                        font-weight: 600;
+                        font-size: 16px;
+                        color: #1f2937;
+
+                        &:hover {
+                            background-color: #f0f4f8;
+                            /* Example background color */
+                            cursor: pointer;
+                        }
                     }
 
                     div {
-                        @apply p-2;
+                        padding: 0.5rem;
                     }
                 }
             }
         }
 
         .detailroom__desc-booking {
-            @apply col-span-4 py-10;
+            grid-column: span 4 / span 4;
+            padding-top: 2.5rem;
 
             .detailroom-booking__wrapper {
-                @apply p-4 rounded-md shadow-md border border-slate-500 sticky top-4 w-[95%];
+                padding: 1rem;
+                border-radius: 0.25rem;
+                box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+                border: 1px solid #4b5563;
+                position: sticky;
+                top: 1rem;
+                width: 95%;
 
                 .detailroom-booking__heading {
-                    @apply hidden md:flex justify-between items-center mb-4;
+                    display: none;
 
                     p {
-                        @apply text-xl font-semibold;
+                        font-size: 1.5rem;
+                        font-weight: 600;
                     }
                 }
 
                 .date-section {
-                    @apply w-full flex flex-col border border-solid border-gray-400 rounded-md;
+                    width: 100%;
+                    border: 1px solid #e5e7eb;
+                    border-radius: 0.25rem;
 
                     .datePicker {
-                        @apply flex border-b border-solid border-gray-400;
+                        display: flex;
+                        border-bottom: 1px solid #e5e7eb;
 
                         .k-dateinput {
                             input {
-                                @apply w-full bg-transparent hover:cursor-pointer;
+                                width: 100%;
+                                background-color: transparent;
+
+                                &:hover {
+                                    cursor: pointer;
+                                }
                             }
                         }
                     }
                 }
 
                 .customerChoose {
-                    @apply p-2;
+                    padding: 0.5rem;
 
                     p {
-                        @apply text-[12px] font-semibold uppercase;
+                        font-size: 12px;
+                        font-weight: 600;
+                        text-transform: uppercase;
                     }
 
                     div {
-                        @apply flex justify-between items-center;
+                        display: flex;
+                        justify-content: space-between;
 
                         button {
-                            @apply w-8 h-8 bg-gray-300 hover:bg-red-400 duration-200 rounded-xl text-white cursor-pointer;
+                            width: 2rem;
+                            height: 2rem;
+                            background-color: #cbd5e0;
+
+                            &:hover {
+                                background-color: #ef4444;
+                                /* Example background color */
+                                cursor: pointer;
+                            }
                         }
                     }
                 }
 
                 .detailroom-booking__btn-section {
                     .detailroom-booking__btnbooking {
-                        @apply w-full py-3 mt-3 rounded-lg text-white text-lg font-semibold;
+                        width: 100%;
+                        padding: 0.75rem 1rem;
+                        margin-top: 1rem;
+                        border-radius: 0.5rem;
+                        font-size: 1.25rem;
+                        font-weight: 600;
+                        color: #ffffff;
                         background: linear-gradient(to right, rgb(230, 30, 77) 0%, rgb(227, 28, 95) 50%, rgb(215, 4, 102) 100%);
+
+                        &:hover {
+                            cursor: pointer;
+                        }
                     }
                 }
 
                 .detailroom-booking__total-section {
-                    @apply py-2 border-b;
+                    padding: 0.75rem 0;
+                    border-bottom: 1px solid #e5e7eb;
 
                     .detailroom-booking__totalprice,
                     .detailroom-booking__totalfee {
-                        @apply flex justify-between items-center py-1;
+                        display: flex;
+                        justify-content: space-between;
+                        padding: 0.25rem 0;
                     }
                 }
 
                 .detailroom-booking__totalbeforetax {
-                    @apply flex justify-between items-center text-lg font-semibold pt-3;
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    font-size: 1.25rem;
+                    font-weight: 600;
+                    padding-top: 0.75rem;
                 }
             }
         }
@@ -361,56 +382,75 @@
 
     .detailroom__comments {
         h1 {
-            @apply font-semibold text-[16px] mb-4;
+            font-weight: bold;
+            font-size: 1rem; // Adjust as needed
+            margin-bottom: 1rem; // Adjust as needed
         }
 
         .detailroom-comments-btn {
-            //dwdawawawdwd
-            @apply mt-4 border border-solid border-gray-900 hover:bg-gray-100 transition-all duration-200 rounded-md px-5 py-3 font-semibold text-base text-gray-800 tracking-wider;
+            margin-top: 1rem; // Adjust as needed
+            border: 1px solid #2d3748; // Adjust color as needed
+            transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
+            padding: 0.75rem 1.25rem; // Adjust as needed
+            font-weight: bold;
+            font-size: 1rem; // Adjust as needed
+            color: #1a202c; // Adjust color as needed
+
+            &:hover {
+                background-color: #f8fafc; // Adjust color as needed
+                color: #2d3748; // Adjust color as needed
+            }
         }
 
         .detailroom__comments-list {
             .ant-spin-container {
+                display: grid;
+                grid-template-columns: repeat(2, minmax(0, 1fr));
 
-                .ant-list-items {
-                    @apply grid grid-cols-2;
+                .ant-list-item.detailroom__comments-item {
+                    border-block-end: none !important;
 
-                    .ant-list-item.detailroom__comments-item {
-                        border-block-end: none !important;
+                    .commentItem__wrapper {
+                        display: flex;
+                        flex-direction: column;
 
-                        .commentItem__wrapper {
-                            @apply flex flex-col;
+                        .commentItem__heading {
+                            display: flex;
+                            align-items: center;
 
-                            .commentItem__heading {
-                                @apply flex items-center;
-
-                                img {
-                                    @apply object-cover w-10 h-10 block rounded-[50%];
-                                }
-
-                                div {
-                                    @apply ml-3;
-
-                                    h3 {
-                                        @apply font-bold uppercase;
-                                    }
-
-                                    p {
-                                        @apply font-normal text-sm text-gray-500;
-                                    }
-                                }
+                            img {
+                                object-cover: cover;
+                                width: 2.5rem;
+                                height: 2.5rem;
+                                display: block;
+                                border-radius: 50%;
                             }
 
-                            .commentItem__body {
-                                @apply mt-3;
+                            div {
+                                margin-left: 0.75rem;
+
+                                h3 {
+                                    font-weight: bold;
+                                    text-transform: uppercase;
+                                }
+
+                                p {
+                                    font-weight: normal;
+                                    font-size: 0.875rem;
+                                    color: #6b7280;
+                                }
                             }
+                        }
+
+                        .commentItem__body {
+                            margin-top: 0.75rem;
                         }
                     }
                 }
-
             }
         }
     }
+
 }
 
 .k-animation-container {
