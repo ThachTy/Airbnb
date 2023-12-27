@@ -30,7 +30,7 @@ const Sidebar = () => {
   // Dashboard
   const items = [
     getItem(
-      "Logo",
+      <p onClick={toggleCollapsed}>Airbnb</p>,
       "toggle",
       <i
         onClick={toggleCollapsed}
