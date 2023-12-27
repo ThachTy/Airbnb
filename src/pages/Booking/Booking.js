@@ -85,7 +85,7 @@ export default function Booking() {
     let searchValue = inputSearchRef.current.input.value;
     if (inputSearchRef.current.input.value === "" || isNaN(searchValue)) {
       const bookings = queryClient.getQueryData(["getAllBookings"]);
-      setBookings(bookings);
+      bookingsByPage(bookings, page.currentPage, page.pageSize);
       isNaN(searchValue) && message.error("Invalid user code");
       return;
     }

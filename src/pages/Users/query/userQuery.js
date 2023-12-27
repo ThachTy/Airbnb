@@ -8,6 +8,13 @@ export const useGetUsersPerPage = (currentPage, pageSize) => {
     queryFn: () => fetchUserByPerPage(currentPage, pageSize),
   });
 };
+/* */
+export const useGetProfilesUsersbyId = (id) => {
+  return new useQuery({
+    queryKey: ["getProfilesUsersbyId", id],
+    queryFn: () => fetchProfilesUserById(id),
+  });
+};
 
 /* */
 export const useSearchUsersByName = (nameSearch) => {
@@ -22,6 +29,22 @@ export const fetchUserByPerPage = async (currentPage, pageSize) => {
   try {
     let response = await usersApi
       .getUsersByPerPage(currentPage, pageSize)
+      .then((res) => {
+        return res;
+      })
+      .catch((error) => {
+        throw error;
+      });
+    return response?.data.content;
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+export const fetchProfilesUserById = async (id) => {
+  try {
+    let response = await usersApi
+      .getProfilesUserById(id)
       .then((res) => {
         return res;
       })
