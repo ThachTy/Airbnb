@@ -11,6 +11,7 @@ import { Button, List, Skeleton } from "antd";
 import { format } from 'date-fns';
 import { bookingApi } from '../../services/bookingServices'
 import { useSelector } from "react-redux";
+import CustomPopup from "./CustomPopup";
 
 
 export default function DetailRoom() {
@@ -273,9 +274,9 @@ export default function DetailRoom() {
                 <p> $80 <span>/đêm</span> </p>
               </div>
               <div className="date-section">
-                <DateRangePicker className="datePicker" startDateInput={CustomStartDate} endDateInput={CustomEndDate} value={value} onChange={handleChange} />
+                <DateRangePicker className="datePicker" render startDateInput={CustomStartDate} endDateInput={CustomEndDate} value={value} onChange={handleChange} />
                 <div className="customerChoose">
-                  <p>Khach</p>
+                  <p>Khách</p>
                   <div className="">
                     <button onClick={() => handleChangeCustomer(-1)}>-</button>
                     <span>{khach}</span>

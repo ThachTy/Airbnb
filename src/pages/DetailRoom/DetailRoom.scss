@@ -359,9 +359,12 @@
                             width: 2rem;
                             height: 2rem;
                             background-color: #cbd5e0;
+                            transition: all .1s linear;
 
                             &:hover {
-                                background-color: #ef4444;
+                                // background-color: #ef4444;
+                                background: linear-gradient(to right, rgb(230, 30, 77) 0%, rgb(227, 28, 95) 50%, rgb(215, 4, 102) 100%);
+                                color: white;
                                 /* Example background color */
                                 cursor: pointer;
                             }
@@ -498,7 +501,6 @@
 }
 
 .k-animation-container {
-    @apply p-4 rounded-lg bg-purple-400;
     padding: 1rem
         /* 16px */
     ;
