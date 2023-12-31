@@ -1,22 +1,20 @@
 .productList__wrapper {
-    // @apply py-4 grid grid-cols-4 gap-5;
-    padding-top: 1rem
-        /* 16px */
-    ;
-    padding-bottom: 1rem
-        /* 16px */
-    ;
+    padding: 1rem;
     display: grid;
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-    gap: 1.25rem
-        /* 20px */
-    ;
+    grid-template-columns: repeat(1, minmax(0, 1fr));
+    gap: 1.5rem;
+
+    @media screen and (min-width: 640px) {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        margin: 0 10px;
+    }
+
+    @media screen and (min-width: 1024px) {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+
 
     .productItem__wrapper {
-        // @apply p-4 flex flex-col justify-center;
-        padding: 1rem
-            /* 16px */
-        ;
         display: flex;
         flex-direction: column;
         justify-content: center;

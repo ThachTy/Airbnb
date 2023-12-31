@@ -51,10 +51,17 @@
     .detailroom__img-section {
         margin-top: 1.25rem;
         display: grid;
-        grid-template-columns: repeat(4, minmax(0, 1fr));
-        grid-template-rows: repeat(2, minmax(0, 1fr));
+        // grid-template-columns: repeat(4, minmax(0, 1fr));
+        // grid-template-rows: repeat(2, minmax(0, 1fr));
         gap: 1.25rem;
         height: 380px;
+
+        @media screen and (min-width: 640px) {
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            grid-template-rows: repeat(2, minmax(0, 1fr));
+            gap: 1.25rem;
+            height: 380px;
+        }
 
         .detailroom__img-item {
             img {
@@ -102,12 +109,24 @@
     .detailroom__desc-section {
         display: grid;
         grid-template-columns: repeat(12, minmax(0, 1fr));
-        gap: 2.5rem;
+
+        @media screen and (min-width: 640px) {
+            gap: 2.5rem;
+        }
 
         .detailroom__desc-detail {
             padding-top: 1.5rem;
-            padding-bottom: 1.5rem;
-            grid-column: span 8 / span 8;
+            padding-bottom: .5rem;
+            grid-column: span 12 / span 12;
+
+            @media screen and (min-width: 640px) {
+                grid-column: span 6 / span 6;
+            }
+
+            @media screen and (min-width: 1024px) {
+                grid-column: span 8 / span 8;
+                padding-bottom: 1.5rem;
+            }
 
             .detailroom__desc-introduce {
                 padding-top: 1rem;
@@ -269,8 +288,19 @@
         }
 
         .detailroom__desc-booking {
-            grid-column: span 4 / span 4;
-            padding-top: 2.5rem;
+            grid-column: span 12 / span 12;
+
+            gap: .5rem;
+
+            @media screen and (min-width: 640px) {
+                grid-column: span 6 / span 6;
+                padding: 40px 0;
+            }
+
+            @media screen and (min-width: 1024px) {
+                grid-column: span 4 / span 4;
+                padding-top: 2.5rem;
+            }
 
             .detailroom-booking__wrapper {
                 padding: 1rem;
@@ -381,6 +411,13 @@
     }
 
     .detailroom__comments {
+
+        margin-top: 2rem;
+
+        @media screen and (min-width: 640px) {
+            margin-top: 1rem;
+        }
+
         h1 {
             font-weight: bold;
             font-size: 1rem; // Adjust as needed
@@ -404,8 +441,15 @@
 
         .detailroom__comments-list {
             .ant-spin-container {
-                display: grid;
-                grid-template-columns: repeat(2, minmax(0, 1fr));
+
+                .ant-list-items {
+                    display: grid;
+                    grid-template-columns: repeat(1, minmax(0, 1fr));
+
+                    @media screen and (min-width: 640px) {
+                        grid-template-columns: repeat(2, minmax(0, 1fr));
+                    }
+                }
 
                 .ant-list-item.detailroom__comments-item {
                     border-block-end: none !important;
@@ -419,7 +463,7 @@
                             align-items: center;
 
                             img {
-                                object-cover: cover;
+                                object-fit: cover;
                                 width: 2.5rem;
                                 height: 2.5rem;
                                 display: block;
