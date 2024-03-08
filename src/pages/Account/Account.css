@@ -1,0 +1,37 @@
+#account .heading {
+  font-size: 1.5rem;
+  font-weight: 600;
+  line-height: 4rem;
+  margin-bottom: 2rem;
+}
+#account .account-content .booking {
+  position: relative;
+  overflow-y: scroll;
+  scroll-behavior: smooth;
+  scroll-snap-type: mandatory;
+  scroll-margin-top: 2px;
+}
+#account .account-content .dicover {
+  position: sticky;
+  top: 2rem;
+  background-color: #fff;
+  border: 1px solid rgba(128, 128, 128, 0.541);
+  border-radius: 7px;
+}
+#account .account-content .dicover h4 {
+  color: #434343;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  text-transform: capitalize;
+}
+#account .account-content .dicover p {
+  margin-bottom: 0.5rem;
+  color: gray;
+  letter-spacing: 0.1rem;
+}
+#account .account-content .dicover button {
+  border: 1px solid gray;
+  border-radius: 5px;
+  color: #000;
+  font-weight: 500;
+}/*# sourceMappingURL=Account.css.map */

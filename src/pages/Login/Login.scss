@@ -1,53 +1,65 @@
 $pink: #ff385c;
-.signin {
-  padding-top: 160px;
-  padding-bottom: 160px;
+#login {
+  margin-block: 2em;
+  margin-inline: auto;
+  padding-block: 0.5em;
   align-items: center;
-  width: 50%;
-  margin: 0 auto;
+  width: max-content;
   border-radius: 20px;
-  h2 {
-    font-weight: bold;
+  background-color: #f3f3f3;
 
+  .login-heading {
+    font-size: 2em;
+    padding: 0.5em;
+    font-weight: bold;
     text-align: center;
     color: $pink;
   }
   .form-signin {
-    width: 50%;
+    width: max-content;
     margin: 0 auto;
-    padding: 20px;
-    .form-item {
-      margin: 30px 0;
-      input{
-        border: 1px solid $pink;
+    padding: 1em 3em 0.5em 3em;
+    border-radius: 5px;
+    .row {
+      height: max-content;
+      position: relative;
+      margin-bottom: 2.5em;
+      display: flex;
+      flex-direction: row;
+      justify-content: flex-start;
+      align-items: center;
+
+      gap: 0.2em;
+      .input {
+        flex-basis: 1 1 auto;
         border-radius: 10px;
+        outline: none;
+        padding: 0.5em 1em;
       }
-      input:focus{
-        outline:none;
-      }
-      
-      span{
-        color: $pink;
-        font-weight: 600;
-      }
-      .email,
-      .password {
-        color: $pink;
+
+      .label {
+        line-height: 2em;
         font-weight: bold;
+        width: 30%;
+        text-align: end;
+        margin-inline-end: 0.5em;
       }
     }
     .btn-signin {
-      width: 100%;
-      border-radius: 20px;
+      margin-left: auto;
+      width: max-content;
+      border-radius: 7px;
       background-color: $pink;
       border: 1px solid $pink;
-      padding: 10px;
+      padding: 0.5em 2em;
       color: white;
+      font-size: 1.3em;
     }
-    .error-msg{
+    .mess {
+      display: block;
       color: $pink;
-      text-align: center;
-      padding: 10px;
+      position: absolute;
+      top: calc(0.5em + 100%);
     }
   }
 }

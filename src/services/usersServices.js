@@ -1,8 +1,11 @@
 import { http } from "./config";
 
 export const usersApi = {
-  dangNhap: (params) => {
-    return http.get();
+  // https://airbnbnew.cybersoft.edu.vn/api/auth/signin
+  login: async ({ email, password }) => {
+    return await http
+      .post("/auth/signin", { email, password })
+      .then((res) => res.data.content);
   },
 
   /* Get Users by Perpage*/

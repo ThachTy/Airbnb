@@ -1,77 +1,121 @@
-import React from 'react'
-import { FaSearch } from 'react-icons/fa';
-import logo from '../../assets/image/AirbnbLogo.png'
-import { FiSearch } from "react-icons/fi";
+import React, { useEffect, useState } from "react";
+import logo from "../../assets/image/AirbnbLogo.png";
+import { GlobeAltIcon } from "@heroicons/react/20/solid";
+import "./styles/styles.css";
+import { Link } from "react-router-dom";
 import {
-  MagnifyingGlassIcon,
-  GlobeAltIcon,
-  Bars3Icon,
-  UserCircleIcon,
-  UsersIcon,
-} from '@heroicons/react/20/solid';
-// import { AppstoreOutlined, MailOutlined, SettingOutlined } from '@ant-design/icons';
-// import { Menu } from 'antd'
+  getUserFromLocalStorage,
+  removeUserFromLocalStorage,
+} from "../../utils/localStorage";
+import defaultAvatar from "../../assets/image/AvatarUser.png";
+import { useGetProfilesUsersbyId } from "../../pages/Users/query/userQuery";
 
-// function getItem(label, key, icon, children, type) {
-//   return {
-//     key,
-//     icon,
-//     children,
-//     label,
-//     type,
-//   };
-// }
-
-
-const Header = () => {
-  const onClick = (e) => {
-    console.log('click ', e);
-  };
-  return (
-    <div className="relative z-50 items-center grid-cols-3 cursor-pointer shadow-md px-20 py-5 grid">
-      {/* left */}
-      <img
-        src={logo}
-        alt='logo'
-        objectFit="contain"
-        objectPosition="left"
-        width="102px"
-        height="20px"
-        display="block"
-      ></img>
-
-
-      {/* middle - search */}
-      <div className="hidden lg:flex justify-center items-center relative shadow-sm shadow-gray-400 border rounded-full ">
-        <input
-          type="search"
-          placeholder=""
-          className="py-2.5 w-[20rem] rounded-full outline-0"
-        />
-        <div className="flex justify-between absolute w-full pr-16 pl-6 font-semibold text-gray-600">
-          <div className="w-full border-r">Place</div>
-          <div className="border-l border-x px-6">Time</div>
-          <div className="w-full text-gray-600/60 pl-2">Group Size</div>
-        </div>
-        <div className="bg-[#ff5a60] p-2 rounded-full mr-2">
-          <FiSearch className="text-white w-full" />
-        </div>
-      </div>
-
-      {/* right */}
-      <div className="flex items-center justify-end space-x-4 text-gray-500">
-        <p className="hidden cursor-pointer md:inline">Thuê chỗ ở qua Airbnb</p>
-        <GlobeAltIcon className="h-6 cursor-pointer" />
-
-        <div className="flex items-center p-2 space-x-2 border-2 rounded-full">
-          <Bars3Icon className="h-6" />
-          <UserCircleIcon className="h-6" />
-        </div>
-      </div>
-    </div>
-    
-  )
+const handleShowNavs = () => {
+  if (window.innerWidth >= 900) return;
+  const navs = document.getElementById("navs");
+  navs.classList.toggle("show");
 };
 
+const handleLogOut = () => {
+  removeUserFromLocalStorage() && console.log("Log out successful");
+  window.location.assign("/");
+};
 
-export default Header
+const Header = () => {
+  const [account, setAccount] = useState({});
+  let login = getUserFromLocalStorage();
+  const { data: user } = useGetProfilesUsersbyId(login.user.id);
+
+  useEffect(() => {
+    if (user) {
+      setAccount(user);
+    }
+  }, [user]);
+
+  return (
+    <header id="header" className="shadow-md py-5">
+      <div className="container">
+        {/* left */}
+        <Link to="/">
+          <img className="image-logo" src={logo} alt="logo" />
+        </Link>
+        {/* middle - search */}
+        <nav id="navs" className="navs">
+          <a className="nav-items" href="#">
+            Anywhere
+          </a>
+          <a className="nav-items" href="#">
+            Any week
+          </a>
+          <a className="nav-items" href="#">
+            Add Guest
+          </a>
+          {/* <button className="nav-items" rolte="button">
+            <i className="fa-solid fa-magnifying-glass search-icon"></i>
+          </button> */}
+        </nav>
+        {/* right */}
+        <div className="flex items-center justify-end space-x-4 text-gray-500">
+          <p className="hidden cursor-pointer md:inline">
+            Thuê chỗ ở qua Airbnb
+          </p>
+          <GlobeAltIcon className="h-6 cursor-pointer" />
+          <div className="btn-bars flex items-center space-x-2 border-2 rounded-full">
+            <button onClick={handleShowNavs} className="btn-bars" role="button">
+              <i className="fa-solid fa-bars"></i>
+            </button>
+
+            <div className="account">
+              <button className="btn-account" role="button">
+                {account.id ? (
+                  <img
+                    className="rounded-full"
+                    width="50"
+                    height="50"
+                    src={account.avatar || defaultAvatar}
+                  />
+                ) : (
+                  <i className="fa-regular fa-circle-user"></i>
+                )}
+              </button>
+              <ul className="dropdown">
+                <li className="dropdown-items">
+                  <Link to="/login">
+                    <i className="fa-solid fa-address-card"></i>Login
+                  </Link>
+                </li>
+                <li className="dropdown-items">
+                  <Link to="/register">
+                    <i className="fa-regular fa-pen-to-square"></i>Register
+                  </Link>
+                </li>
+                <li className="dropdown-items">
+                  <Link to="/admin">
+                    <i className="fa-solid fa-layer-group"></i>Admin
+                  </Link>
+                </li>
+                <li className="dropdown-items">
+                  <Link to="/account/:idUser">
+                    <i className="fa-solid fa-layer-group"></i>Booked Room
+                  </Link>
+                </li>
+                <li className="dropdown-items">
+                  <Link to={`/profiles/${account.id}`}>
+                    <i className="fa-solid fa-layer-group"></i>Profiles
+                  </Link>
+                </li>
+                <li className="dropdown-items">
+                  <a onClick={handleLogOut} role="button">
+                    <i className="fa-solid fa-right-from-bracket"></i>
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+  );
+};
+
+export default Header;

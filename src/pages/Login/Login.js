@@ -1,65 +1,59 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import { useDispatch, useSelector } from "react-redux";
-import { Navigate, useSearchParams } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { useSearchParams } from "react-router-dom";
 import { login } from "../../ReduxToolkit/Slice/userSlice";
 import { usersApi } from "../../services/usersServices";
-import { Modal } from "antd";
-
+import { saveUserFromLocalStorage } from "../../utils/localStorage";
+import { getUserFromLocalStorage } from "../../utils/localStorage";
 import "./Login.scss";
 
 const Login = () => {
   const [searchParams, setSearchParams] = useSearchParams();
-  const navigate = Navigate();
-
   const dispatch = useDispatch();
-  const { user, loading, error } = useSelector((state) => state.auth);
   const { register, handleSubmit, formState } = useForm({
     defaultValue: { email: "", password: "" },
     mode: "onTouched",
   });
   const { errors } = formState;
+  const [account, setAccount] = useState({ email: "", password: "" });
+
+  useEffect(() => {
+  if (getUserFromLocalStorage()) {
+      let { user } = getUserFromLocalStorage();
+      setAccount({ email: user.email, password: user.password });
+    }
+  }, []);
 
   const onFinish = (values) => {
-    console.log("Success:", values);
-
     usersApi
-      .dangNhap(values)
-      .then((res) => [
-        localStorage.setItem("user", JSON.stringify(res.data)),
-        dispatch(login(res.data)),
-        Modal.success({
-          title: "This is a success message",
-          content: "Đăng nhập thành công",
-        }),
-        navigate("/"),
-      ])
-      .catch((err) => console.log(err));
+      .login(values)
+      .then((res) => {
+        saveUserFromLocalStorage(res);
+        window.location.assign("/");
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   const onFinishFailed = (errorInfo) => {
     console.log("Failed:", errorInfo);
   };
 
-  const onSubmit = (values) => {
-    // dispatch(signin(values));
-  };
-  if (user) {
-    alert("Đăng nhập thành công");
-    const redirectUrl = searchParams.get("redirectUrl");
-    // Có thông tin user => đã đăng nhập => redirect redirectUrl hoặc Home
-    return <Navigate to={redirectUrl || "/"} replace />;
-  }
-
   return (
-    <div className="signin">
-      <h2>ĐĂNG NHẬP</h2>
-      <form onSubmit={handleSubmit(onSubmit)} className="form-signin">
-        <div className="form-item row">
-          <label className="email  col-4">Email</label>
+    <section id="login">
+      <h2 className="login-heading">ĐĂNG NHẬP</h2>
+      <form onSubmit={handleSubmit(onFinish)} className="form-signin">
+        <div className="row">
+          <label htmlFor="email" className="label">
+            Email :
+          </label>
           <input
-            placeholder="email..."
-            className="input-email col-8"
+            className="input"
+            id="email"
+            placeholder="Email..."
+            value={account.email ? account?.email : null}
             type="text"
             {...register("email", {
               required: {
@@ -68,13 +62,16 @@ const Login = () => {
               },
             })}
           />
-          {errors.email && <span>{errors.email.message}</span>}
+          {errors.email && <span className="mess">{errors.email.message}</span>}
         </div>
-        <div className="form-item row">
-          <label className="password col-4">Password</label>
+        <div className="row">
+          <label htmlFor="pass" className="label">
+            Password :
+          </label>
           <input
-            placeholder="password..."
-            className="input-password col-8"
+            id="pass"
+            placeholder={"Password..."}
+            className="input"
             type="password"
             {...register("password", {
               required: {
@@ -87,14 +84,17 @@ const Login = () => {
               },
             })}
           />
-          {errors.password && <span>{errors.password.message}</span>}
+          {errors.password && (
+            <span className="mess">
+              {errors.password && errors.password.message}
+            </span>
+          )}
         </div>
-        <button className="btn-signin" disabled={loading}>
-          Đăng Nhập
-        </button>
-        {error && <p className="error-msg">{error}</p>}
+        <div className="row">
+          <button className="btn-signin">Đăng Nhập</button>
+        </div>
       </form>
-    </div>
+    </section>
   );
 };
 

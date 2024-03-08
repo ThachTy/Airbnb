@@ -1,0 +1,449 @@
+.detailroom__wrapper .detailroom__title {
+  font-weight: 600;
+  font-size: 1.875rem;
+  letter-spacing: 0.1em;
+}
+.detailroom__wrapper .detailroom__location {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.detailroom__wrapper .detailroom__location p {
+  text-decoration: underline;
+  font-size: 0.875rem;
+  font-weight: 400;
+  letter-spacing: 0.1em;
+  margin: 0 0.25rem;
+}
+.detailroom__wrapper .detailroom__location div span {
+  font-size: 0.875rem;
+  font-weight: 600;
+  padding: 0.25rem 0.5rem;
+  border-radius: 0.5rem;
+  transition-property: all;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
+}
+.detailroom__wrapper .detailroom__location div span:hover {
+  background-color: #f0f4f8;
+  /* Example background color */
+  cursor: pointer;
+}
+.detailroom__wrapper .detailroom__img-section {
+  margin-top: 1.25rem;
+  display: grid;
+  gap: 1.25rem;
+  height: 380px;
+}
+@media screen and (min-width: 640px) {
+  .detailroom__wrapper .detailroom__img-section {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    grid-template-rows: repeat(2, minmax(0, 1fr));
+    gap: 1.25rem;
+    height: 380px;
+  }
+}
+.detailroom__wrapper .detailroom__img-section .detailroom__img-item {
+  grid-column: span 1/span 1;
+}
+.detailroom__wrapper .detailroom__img-section .detailroom__img-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.detailroom__wrapper .detailroom__img-section .detailroom__img-item:first-child {
+  grid-column: span 2/span 2;
+  grid-row: span 2/span 2;
+}
+.detailroom__wrapper .detailroom__img-section .detailroom__img-item:first-child img {
+  width: 100%;
+  object-fit: cover;
+  border-top-left-radius: 0.75rem;
+  border-bottom-left-radius: 0.75rem;
+  border-top-right-radius: 0px;
+  border-bottom-right-radius: 0px;
+}
+.detailroom__wrapper .detailroom__img-section .detailroom__img-item:nth-child(3) img {
+  width: 100%;
+  height: 100%;
+  border-top-right-radius: 0.75rem;
+  overflow: hidden;
+}
+.detailroom__wrapper .detailroom__img-section .detailroom__img-item:last-child img {
+  width: 100%;
+  height: 100%;
+  border-bottom-right-radius: 0.75rem;
+  overflow: hidden;
+}
+.detailroom__wrapper .detailroom__desc-section {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+}
+@media screen and (min-width: 640px) {
+  .detailroom__wrapper .detailroom__desc-section {
+    gap: 2.5rem;
+  }
+}
+.detailroom__wrapper .detailroom__desc-section .detailroom__desc-detail {
+  padding-top: 1.5rem;
+  padding-bottom: 0.5rem;
+  grid-column: span 12/span 12;
+}
+@media screen and (min-width: 640px) {
+  .detailroom__wrapper .detailroom__desc-section .detailroom__desc-detail {
+    grid-column: span 6/span 6;
+  }
+}
+@media screen and (min-width: 1024px) {
+  .detailroom__wrapper .detailroom__desc-section .detailroom__desc-detail {
+    grid-column: span 8/span 8;
+    padding-bottom: 1.5rem;
+  }
+}
+.detailroom__wrapper .detailroom__desc-section .detailroom__desc-detail .detailroom__desc-introduce {
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+}
+.detailroom__wrapper .detailroom__desc-section .detailroom__desc-detail .detailroom__desc-introduce::after {
+  content: "";
+  background: #e5e7eb;
+  display: block;
+  height: 1px;
+  width: 100%;
+  margin-top: 1.5rem;
+}
+.detailroom__wrapper .detailroom__desc-section .detailroom__desc-detail .detailroom__desc-introduce .detailroom__desc-detail-title {
+  color: rgb(31, 41, 55);
+  font-weight: 600;
+  font-size: 1.125rem;
+  line-height: 1.75rem;
+}
+.detailroom__wrapper .detailroom__desc-section .detailroom__desc-detail .detailroom__desc-introduce .detailroom__desc-detail-title .sm-text-2xl {
+  font-size: 1.5rem;
+  line-height: 2rem;
+}
+.detailroom__wrapper .detailroom__desc-section .detailroom__desc-detail .detailroom__desc-introduce .dedetailroom__desc-detail-totalroom {
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  font-weight: 400;
+  letter-spacing: 0.1em;
+  color: rgb(55, 65, 81);
+}
+.detailroom__wrapper .detailroom__desc-section .detailroom__desc-detail .detailroom__desc-introduce .dedetailroom__desc-detail-totalroom span {
+  margin-left: 0.25rem;
+  margin-right: 0.25rem;
+}
+.detailroom__wrapper .detailroom__desc-section .detailroom__desc-detail .detailroom__desc-general {
+  padding: 1rem;
+}
+.detailroom__wrapper .detailroom__desc-section .detailroom__desc-detail .detailroom__desc-general::after {
+  content: "";
+  background: #e5e7eb;
+  display: block;
+  height: 1px;
+  width: 100%;
+  margin-top: 1.5rem;
+}
+.detailroom__wrapper .detailroom__desc-section .detailroom__desc-detail .detailroom__desc-general .general__item {
+  display: flex;
+  justify-content: start;
+  align-items: start;
+  margin-bottom: 1.25rem;
+}
+.detailroom__wrapper .detailroom__desc-section .detailroom__desc-detail .detailroom__desc-general .general__item i {
+  font-size: 1.5rem;
+}
+.detailroom__wrapper .detailroom__desc-section .detailroom__desc-detail .detailroom__desc-general .general__item div {
+  margin-left: 1rem;
+}
+.detailroom__wrapper .detailroom__desc-section .detailroom__desc-detail .detailroom__desc-general .general__item div h3 {
+  font-weight: 600;
+  color: #1f2937;
+  font-size: 1rem;
+}
+.detailroom__wrapper .detailroom__desc-section .detailroom__desc-detail .detailroom__desc-general .general__item div p {
+  color: #6b7280;
+  font-size: 14px;
+}
+.detailroom__wrapper .detailroom__desc-section .detailroom__desc-detail .detailroom__desc-intro-web {
+  padding: 1rem;
+}
+.detailroom__wrapper .detailroom__desc-section .detailroom__desc-detail .detailroom__desc-intro-web::after {
+  content: "";
+  background: #e5e7eb;
+  display: block;
+  height: 1px;
+  width: 100%;
+  margin-top: 1.5rem;
+}
+.detailroom__wrapper .detailroom__desc-section .detailroom__desc-detail .detailroom__desc-intro-web img {
+  object-fit: contain;
+  margin-bottom: 1rem;
+}
+.detailroom__wrapper .detailroom__desc-section .detailroom__desc-detail .detailroom__desc-intro-web p {
+  margin-bottom: 1rem;
+  font-size: 16px;
+  color: #1f2937;
+  letter-spacing: wider;
+}
+.detailroom__wrapper .detailroom__desc-section .detailroom__desc-detail .detailroom__desc-intro-web a {
+  text-decoration: underline;
+  font-weight: 600;
+}
+.detailroom__wrapper .detailroom__desc-section .detailroom__desc-detail .detailroom-desc-more::after {
+  content: "";
+  background: #e5e7eb;
+  display: block;
+  height: 1px;
+  width: 100%;
+  margin-top: 1.5rem;
+}
+.detailroom__wrapper .detailroom__desc-section .detailroom__desc-detail .detailroom-desc-more p {
+  font-size: 16px;
+  letter-spacing: wider;
+  color: #1f2937;
+  margin-bottom: 1rem;
+}
+.detailroom__wrapper .detailroom__desc-section .detailroom__desc-detail .detailroom-desc-more a {
+  font-weight: 600;
+  text-decoration: underline;
+}
+.detailroom__wrapper .detailroom__desc-section .detailroom__desc-detail .detailroom-desc-utils {
+  padding: 1.25rem;
+}
+.detailroom__wrapper .detailroom__desc-section .detailroom__desc-detail .detailroom-desc-utils::after {
+  content: "";
+  background: #e5e7eb;
+  display: block;
+  height: 1px;
+  width: 100%;
+  margin-top: 1.5rem;
+}
+.detailroom__wrapper .detailroom__desc-section .detailroom__desc-detail .detailroom-desc-utils p {
+  font-weight: 600;
+  color: #1f2937;
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+}
+.detailroom__wrapper .detailroom__desc-section .detailroom__desc-detail .detailroom-desc-utils .detailroom-desc-utils-child .detailroom-desc-utils-child-list {
+  border: none;
+}
+.detailroom__wrapper .detailroom__desc-section .detailroom__desc-detail .detailroom-desc-utils .detailroom-desc-utils-child .detailroom-desc-utils-child-list .ant-spin-nested-loading {
+  padding: 0;
+}
+.detailroom__wrapper .detailroom__desc-section .detailroom__desc-detail .detailroom-desc-utils .detailroom-desc-utils-child .detailroom-desc-utils-child-list .ant-spin-nested-loading .ant-spin-container {
+  padding: 0;
+}
+.detailroom__wrapper .detailroom__desc-section .detailroom__desc-detail .detailroom-desc-utils .detailroom-desc-utils-child .detailroom-desc-utils-child-list .ant-spin-nested-loading .ant-spin-container .ant-list-items {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  border: none;
+}
+.detailroom__wrapper .detailroom__desc-section .detailroom__desc-detail .detailroom-desc-utils .detailroom-desc-utils-child .detailroom-desc-utils-child-list .ant-spin-nested-loading .ant-spin-container .ant-list-items .ant-list-item.detailroom-desc-utils-child-list-item {
+  border-block-end: none !important;
+}
+.detailroom__wrapper .detailroom__desc-section .detailroom__desc-detail .detailroom-desc-utils .detailroom-desc-utils-child button {
+  margin-top: 1rem;
+  border: 1px solid #4b5563;
+  background-color: transparent;
+  transition: all 200ms;
+  border-radius: 0.25rem;
+  padding: 0.75rem 1.25rem;
+  font-weight: 600;
+  font-size: 16px;
+  color: #1f2937;
+}
+.detailroom__wrapper .detailroom__desc-section .detailroom__desc-detail .detailroom-desc-utils .detailroom-desc-utils-child button:hover {
+  background-color: #f0f4f8;
+  /* Example background color */
+  cursor: pointer;
+}
+.detailroom__wrapper .detailroom__desc-section .detailroom__desc-detail .detailroom-desc-utils .detailroom-desc-utils-child div {
+  padding: 0.5rem;
+}
+.detailroom__wrapper .detailroom__desc-section .detailroom__desc-booking {
+  grid-column: span 12/span 12;
+  gap: 0.5rem;
+}
+@media screen and (min-width: 640px) {
+  .detailroom__wrapper .detailroom__desc-section .detailroom__desc-booking {
+    grid-column: span 6/span 6;
+    padding: 40px 0;
+  }
+}
+@media screen and (min-width: 1024px) {
+  .detailroom__wrapper .detailroom__desc-section .detailroom__desc-booking {
+    grid-column: span 4/span 4;
+    padding-top: 2.5rem;
+  }
+}
+.detailroom__wrapper .detailroom__desc-section .detailroom__desc-booking .detailroom-booking__wrapper {
+  padding: 1rem;
+  border-radius: 0.25rem;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  border: 1px solid #4b5563;
+  position: sticky;
+  top: 1rem;
+  width: 95%;
+}
+.detailroom__wrapper .detailroom__desc-section .detailroom__desc-booking .detailroom-booking__wrapper .detailroom-booking__heading {
+  display: none;
+}
+.detailroom__wrapper .detailroom__desc-section .detailroom__desc-booking .detailroom-booking__wrapper .detailroom-booking__heading p {
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+.detailroom__wrapper .detailroom__desc-section .detailroom__desc-booking .detailroom-booking__wrapper .date-section {
+  width: 100%;
+  border: 1px solid #e5e7eb;
+  border-radius: 0.25rem;
+}
+.detailroom__wrapper .detailroom__desc-section .detailroom__desc-booking .detailroom-booking__wrapper .date-section .datePicker {
+  display: flex;
+  border-bottom: 1px solid #e5e7eb;
+}
+.detailroom__wrapper .detailroom__desc-section .detailroom__desc-booking .detailroom-booking__wrapper .date-section .datePicker .k-dateinput input {
+  width: 100%;
+  background-color: transparent;
+}
+.detailroom__wrapper .detailroom__desc-section .detailroom__desc-booking .detailroom-booking__wrapper .date-section .datePicker .k-dateinput input:hover {
+  cursor: pointer;
+}
+.detailroom__wrapper .detailroom__desc-section .detailroom__desc-booking .detailroom-booking__wrapper .customerChoose {
+  padding: 0.5rem;
+}
+.detailroom__wrapper .detailroom__desc-section .detailroom__desc-booking .detailroom-booking__wrapper .customerChoose p {
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+.detailroom__wrapper .detailroom__desc-section .detailroom__desc-booking .detailroom-booking__wrapper .customerChoose div {
+  display: flex;
+  justify-content: space-between;
+}
+.detailroom__wrapper .detailroom__desc-section .detailroom__desc-booking .detailroom-booking__wrapper .customerChoose div button {
+  width: 2rem;
+  height: 2rem;
+  background-color: #cbd5e0;
+  transition: all 0.1s linear;
+}
+.detailroom__wrapper .detailroom__desc-section .detailroom__desc-booking .detailroom-booking__wrapper .customerChoose div button:hover {
+  background: linear-gradient(to right, rgb(230, 30, 77) 0%, rgb(227, 28, 95) 50%, rgb(215, 4, 102) 100%);
+  color: white;
+  /* Example background color */
+  cursor: pointer;
+}
+.detailroom__wrapper .detailroom__desc-section .detailroom__desc-booking .detailroom-booking__wrapper .detailroom-booking__btn-section .detailroom-booking__btnbooking {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  margin-top: 1rem;
+  border-radius: 0.5rem;
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #ffffff;
+  background: linear-gradient(to right, rgb(230, 30, 77) 0%, rgb(227, 28, 95) 50%, rgb(215, 4, 102) 100%);
+}
+.detailroom__wrapper .detailroom__desc-section .detailroom__desc-booking .detailroom-booking__wrapper .detailroom-booking__btn-section .detailroom-booking__btnbooking:hover {
+  cursor: pointer;
+}
+.detailroom__wrapper .detailroom__desc-section .detailroom__desc-booking .detailroom-booking__wrapper .detailroom-booking__total-section {
+  padding: 0.75rem 0;
+  border-bottom: 1px solid #e5e7eb;
+}
+.detailroom__wrapper .detailroom__desc-section .detailroom__desc-booking .detailroom-booking__wrapper .detailroom-booking__total-section .detailroom-booking__totalprice,
+.detailroom__wrapper .detailroom__desc-section .detailroom__desc-booking .detailroom-booking__wrapper .detailroom-booking__total-section .detailroom-booking__totalfee {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.25rem 0;
+}
+.detailroom__wrapper .detailroom__desc-section .detailroom__desc-booking .detailroom-booking__wrapper .detailroom-booking__totalbeforetax {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 1.25rem;
+  font-weight: 600;
+  padding-top: 0.75rem;
+}
+.detailroom__wrapper .detailroom__comments {
+  margin-top: 2rem;
+}
+@media screen and (min-width: 640px) {
+  .detailroom__wrapper .detailroom__comments {
+    margin-top: 1rem;
+  }
+}
+.detailroom__wrapper .detailroom__comments h1 {
+  font-weight: bold;
+  font-size: 1rem;
+  margin-bottom: 1rem;
+}
+.detailroom__wrapper .detailroom__comments .detailroom-comments-btn {
+  margin-top: 1rem;
+  border: 1px solid #2d3748;
+  transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
+  padding: 0.75rem 1.25rem;
+  font-weight: bold;
+  font-size: 1rem;
+  color: #1a202c;
+}
+.detailroom__wrapper .detailroom__comments .detailroom-comments-btn:hover {
+  background-color: #f8fafc;
+  color: #2d3748;
+}
+.detailroom__wrapper .detailroom__comments .detailroom__comments-list .ant-spin-container .ant-list-items {
+  display: grid;
+  grid-template-columns: repeat(1, minmax(0, 1fr));
+}
+@media screen and (min-width: 640px) {
+  .detailroom__wrapper .detailroom__comments .detailroom__comments-list .ant-spin-container .ant-list-items {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+.detailroom__wrapper .detailroom__comments .detailroom__comments-list .ant-spin-container .ant-list-item.detailroom__comments-item {
+  border-block-end: none !important;
+}
+.detailroom__wrapper .detailroom__comments .detailroom__comments-list .ant-spin-container .ant-list-item.detailroom__comments-item .commentItem__wrapper {
+  display: flex;
+  flex-direction: column;
+}
+.detailroom__wrapper .detailroom__comments .detailroom__comments-list .ant-spin-container .ant-list-item.detailroom__comments-item .commentItem__wrapper .commentItem__heading {
+  display: flex;
+  align-items: center;
+}
+.detailroom__wrapper .detailroom__comments .detailroom__comments-list .ant-spin-container .ant-list-item.detailroom__comments-item .commentItem__wrapper .commentItem__heading img {
+  object-fit: cover;
+  width: 2.5rem;
+  height: 2.5rem;
+  display: block;
+  border-radius: 50%;
+}
+.detailroom__wrapper .detailroom__comments .detailroom__comments-list .ant-spin-container .ant-list-item.detailroom__comments-item .commentItem__wrapper .commentItem__heading div {
+  margin-left: 0.75rem;
+}
+.detailroom__wrapper .detailroom__comments .detailroom__comments-list .ant-spin-container .ant-list-item.detailroom__comments-item .commentItem__wrapper .commentItem__heading div h3 {
+  font-weight: bold;
+  text-transform: uppercase;
+}
+.detailroom__wrapper .detailroom__comments .detailroom__comments-list .ant-spin-container .ant-list-item.detailroom__comments-item .commentItem__wrapper .commentItem__heading div p {
+  font-weight: normal;
+  font-size: 0.875rem;
+  color: #6b7280;
+}
+.detailroom__wrapper .detailroom__comments .detailroom__comments-list .ant-spin-container .ant-list-item.detailroom__comments-item .commentItem__wrapper .commentItem__body {
+  margin-top: 0.75rem;
+}
+
+.k-animation-container {
+  padding: 1rem;
+  border-radius: 0.5rem;
+  background-color: white;
+}
+.k-animation-container .k-calendar-view {
+  width: 100%;
+}
+.k-animation-container .k-calendar-table.k-content {
+  width: 100%;
+}
+.k-animation-container .k-calendar-table.k-content .k-calendar-tbody {
+  text-align: center;
+}/*# sourceMappingURL=DetailRoom.css.map */

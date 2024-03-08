@@ -1,0 +1,74 @@
+#booking {
+  padding: 2rem 1rem 0 1rem;
+  background-color: #f2f2f2;
+}
+#booking .btn:focus-visible {
+  outline: none;
+  box-shadow: none;
+}
+#booking .bookings-top {
+  padding: 0.5rem;
+  background-color: #fff;
+}
+#booking .bookings-top .btn-add {
+  color: #696969;
+  font-weight: 600;
+}
+#booking .bookings-top .btn-add:hover {
+  color: #000;
+}
+#booking .bookings-top .btn-search {
+  background-color: #434343;
+  color: #fff;
+  font-weight: 600;
+}
+#booking .bookings-content {
+  width: 100%;
+  height: 70vh;
+  margin: 1rem auto 0 auto;
+  overflow: scroll;
+  border-radius: 10px;
+  background-color: #fff;
+}
+#booking .bookings-content .table {
+  width: 100%;
+  color: #434343;
+  overflow-x: scroll;
+}
+#booking .bookings-content .table .heading {
+  position: sticky;
+  top: 0;
+}
+#booking .bookings-content .table .heading th {
+  background-color: #434343;
+  color: #fff;
+  font-size: 0.7rem;
+  text-align: center;
+  padding: 0.5rem;
+}
+#booking .bookings-content .table .row {
+  font-size: 0.7rem;
+}
+#booking .bookings-content .table .row .cell-center {
+  text-align: center;
+}
+#booking .bookings-content .table .row .btn-details {
+  background-color: transparent;
+  color: crimson !important;
+}
+#booking .bookings-content .table .row .btn-edit {
+  background-color: #000;
+}
+#booking .bookings-content .table .row .btn-delete {
+  background-color: crimson;
+}
+#booking .bookings-content .table .row .btn {
+  padding: 3px 0.3rem;
+  border: 1px solid black;
+  color: #fff;
+  display: inline-block;
+}
+#booking .bookings-content .table .row:hover {
+  color: #000;
+  background-color: rgb(199, 199, 199);
+}/*# sourceMappingURL=Booking.css.map */

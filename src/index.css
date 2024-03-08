@@ -4,3 +4,7 @@
 @import 'tailwindcss/base';
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities';
+
+:root {
+    --color-pink-1: #ff5a5f;
+}

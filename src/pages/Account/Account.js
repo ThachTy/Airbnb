@@ -1,5 +1,5 @@
 import React, { Suspense, lazy } from "react";
-import "./Account.scss";
+import "./Account.css";
 import { useParams } from "react-router-dom";
 import { useQuery } from "react-query";
 import { bookingApi } from "../../services/bookingServices";

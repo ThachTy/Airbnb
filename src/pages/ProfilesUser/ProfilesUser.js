@@ -6,7 +6,7 @@ import { useParams } from "react-router-dom";
 import { message } from "antd";
 /* */
 import avatar from "../../assets/image/AvatarUser.png";
-import "./ProfilesUser.scss";
+import "./ProfilesUser.css";
 import { useGetProfilesUserById } from "./query/profilesUser";
 import {
   usePutNewUserMutation,
@@ -42,7 +42,7 @@ export default function ProfilesUser() {
       return;
     }
 
-    // post new Avart in here...
+    // post new Avatar in here...
     let formData = new FormData();
     formData.append("formFile", file);
 
@@ -110,7 +110,7 @@ export default function ProfilesUser() {
   return (
     <section
       id="profiles"
-      className="min-w-full h-content flex flex-col md:flex-grow lg:flex-row "
+      className="min-w-full h-content flex flex-col md:flex-grow lg:flex-row"
     >
       {/* Left */}
       <div className="profiles-left h-full mt-6 px-2 py-4 min-w-[100%] lg:min-w-[350px] flex flex-col justify-start items-center">
@@ -247,171 +247,182 @@ export default function ProfilesUser() {
           {/* Basic Infomation */}
           <div className="info py-3 sm:px-0">
             <dd className="mt-1 selection:leading-6 ">
-              <Collapse style={{ width: "100%" }} className="w-full">
-                <Collapse.Panel
-                  className=" w-full"
-                  key={"Basic Information"}
-                  header={<span className="title">Bacsic Information</span>}
-                >
-                  {/* Phone , Gender, Birthday */}
-                  <form>
-                    <div className="form-group flex flex-col">
-                      <label className="label" htmlFor="phone">
-                        <i className="fa-solid fa-mobile-screen-button mr-1"></i>
-                        Phone :
-                      </label>
-                      <input
-                        onKeyUp={(event) => handleChangeProfiles(event)}
-                        defaultValue={profiles?.phone}
-                        disabled={isEdit}
-                        className="form-controls"
-                        name="phone"
-                        type="text"
-                      />
-                    </div>
-                    <div className="form-group flex flex-col">
-                      <label className="label" htmlFor="gender">
-                        <i className="fa-solid fa-people-arrows mr-1"></i>
-                        Gender :
-                      </label>
-                      <select
-                        onChange={(event) => handleChangeGender(event)}
-                        defaultValue={profiles?.gender}
-                        disabled={isEdit}
-                        name="gender"
-                        className="form-controls"
-                      >
-                        <option value="male">Male</option>
-                        <option value="female">Female</option>
-                      </select>
-                    </div>
-                    <div className="form-group flex flex-col">
-                      <label className="label" htmlFor="birthday">
-                        <i className="fa-solid fa-cake-candles mr-1"></i>
-                        Birthday :
-                      </label>
-                      <DatePicker
-                        onChange={handleChangeBirthday}
-                        defaultValue={dayjs(profiles?.birthday)}
-                        disabled={isEdit}
-                        name="birthday"
-                        format={"DD/MM/YYYY"}
-                        className="form-controls"
-                      />
-                    </div>
-                  </form>
-                </Collapse.Panel>
-              </Collapse>
+              <Collapse
+                style={{ width: "100%" }}
+                className="w-full"
+                items={[
+                  {
+                    key: "Basic Information",
+                    label: <span className="title">Bacsic Information</span>,
+                    children: (
+                      /* Phone , Gender, Birthday */
+                      <form>
+                        <div className="form-group flex flex-col">
+                          <label className="label" htmlFor="phone">
+                            <i className="fa-solid fa-mobile-screen-button mr-1"></i>
+                            Phone :
+                          </label>
+                          <input
+                            onKeyUp={(event) => handleChangeProfiles(event)}
+                            defaultValue={profiles?.phone}
+                            disabled={isEdit}
+                            className="form-controls"
+                            name="phone"
+                            type="text"
+                          />
+                        </div>
+                        <div className="form-group flex flex-col">
+                          <label className="label" htmlFor="gender">
+                            <i className="fa-solid fa-people-arrows mr-1"></i>
+                            Gender :
+                          </label>
+                          <select
+                            onChange={(event) => handleChangeGender(event)}
+                            defaultValue={profiles?.gender}
+                            disabled={isEdit}
+                            name="gender"
+                            className="form-controls"
+                          >
+                            <option value="male">Male</option>
+                            <option value="female">Female</option>
+                          </select>
+                        </div>
+                        <div className="form-group flex flex-col">
+                          <label className="label" htmlFor="birthday">
+                            <i className="fa-solid fa-cake-candles mr-1"></i>
+                            Birthday :
+                          </label>
+                          <DatePicker
+                            onChange={handleChangeBirthday}
+                            defaultValue={dayjs(profiles?.birthday)}
+                            disabled={isEdit}
+                            name="birthday"
+                            format={"DD/MM/YYYY"}
+                            className="form-controls"
+                          />
+                        </div>
+                      </form>
+                    ),
+                  },
+                ]}
+              ></Collapse>
             </dd>
           </div>
 
           {/* About me */}
           <div className="info py-3 sm:px-0">
             <dd className="mt-1 selection:leading-6 ">
-              <Collapse style={{ width: "100%" }} className="w-full">
-                <Collapse.Panel
-                  className="w-full "
-                  key={"about"}
-                  header={<span className="title">About me</span>}
-                >
-                  <p className="text-[#727272]">
-                    “My hobbies are reading books and working out. Along with
-                    this, I also like cooking. While researching the company, I
-                    got to know about the in-house gym. Having a gym in the
-                    workplace is a great idea as employees can get to know each
-                    other better on a casual level apart from their designated
-                    roles.“
-                  </p>
-                </Collapse.Panel>
-              </Collapse>
+              <Collapse
+                style={{ width: "100%" }}
+                className="w-full"
+                items={[
+                  {
+                    key: 1,
+                    label: <span className="title">About me</span>,
+                    children: (
+                      <p className="text-[#727272]">
+                        “My hobbies are reading books and working out. Along
+                        with this, I also like cooking. While researching the
+                        company, I got to know about the in-house gym. Having a
+                        gym in the workplace is a great idea as employees can
+                        get to know each other better on a casual level apart
+                        from their designated roles.“
+                      </p>
+                    ),
+                  },
+                ]}
+              ></Collapse>
             </dd>
           </div>
           {/* Social Affairs Information */}
           <div className="info py-3 sm:px-0">
             <dd className="mt-1 selection:leading-6 ">
-              <Collapse className="w-full">
-                <Collapse.Panel
-                  className="w-full"
-                  key={"1"}
-                  header={
-                    <span className="title">Social Affairs Information</span>
-                  }
-                >
-                  {/* Facebook , Twitter, Whatsapp */}
-                  <form>
-                    <div className="form-group flex flex-col">
-                      <label className="label">
-                        <i className="fa-brands fa-meta mr-1"></i>
-                        Facebook :{" "}
-                      </label>
+              <Collapse
+                className="w-full"
+                items={[
+                  {
+                    key: 1,
+                    label: (
+                      <span className="title">Social Affairs Information</span>
+                    ),
+                    children: (
+                      /* Facebook , Twitter, Whatsapp */
+                      <form>
+                        <div className="form-group flex flex-col">
+                          <label className="label">
+                            <i className="fa-brands fa-meta mr-1"></i>
+                            Facebook :{" "}
+                          </label>
 
-                      {isEdit && (
-                        <a
-                          className="text-gray-500 leading-[1.5rem] pl-[0.5rem]"
-                          target="_blank"
-                          href="https://www.facebook.com/"
-                        >
-                          https://www.facebook.com/
-                        </a>
-                      )}
-                      {!isEdit && (
-                        <input
-                          disabled={isEdit}
-                          className="form-controls"
-                          type="text"
-                          placeholder="https://www.facebook.com/"
-                        />
-                      )}
-                    </div>
-                    <div className="form-group flex flex-col">
-                      <label className="label">
-                        <i className="fa-brands fa-twitter mr-1"></i>
-                        Twitter :
-                      </label>
-                      {isEdit && (
-                        <a
-                          className="text-gray-500 leading-[1.5rem] pl-[0.5rem]"
-                          target="_blank"
-                          href="https://twitter.com/"
-                        >
-                          https://twitter.com/
-                        </a>
-                      )}
-                      {!isEdit && (
-                        <input
-                          disabled={isEdit}
-                          className="form-controls"
-                          type="text"
-                          placeholder="https://twitter.com/"
-                        />
-                      )}
-                    </div>
-                    <div className="form-group flex flex-col">
-                      <label className="label">
-                        <i className="fa-brands fa-square-whatsapp mr-1"></i>
-                        Whatsapp:
-                      </label>
-                      {isEdit && (
-                        <a
-                          className="text-gray-500 leading-[1.5rem] pl-[0.5rem]"
-                          target="_blank"
-                          href="https://web.whatsapp.com/"
-                        >
-                          https://web.whatsapp.com/
-                        </a>
-                      )}
-                      {!isEdit && (
-                        <input
-                          disabled={isEdit}
-                          className="form-controls"
-                          type="text"
-                          placeholder="https://web.whatsapp.com/"
-                        />
-                      )}
-                    </div>
-                  </form>
-                </Collapse.Panel>
-              </Collapse>
+                          {isEdit && (
+                            <a
+                              className="text-gray-500 leading-[1.5rem] pl-[0.5rem]"
+                              target="_blank"
+                              href="https://www.facebook.com/"
+                            >
+                              https://www.facebook.com/
+                            </a>
+                          )}
+                          {!isEdit && (
+                            <input
+                              disabled={isEdit}
+                              className="form-controls"
+                              type="text"
+                              placeholder="https://www.facebook.com/"
+                            />
+                          )}
+                        </div>
+                        <div className="form-group flex flex-col">
+                          <label className="label">
+                            <i className="fa-brands fa-twitter mr-1"></i>
+                            Twitter :
+                          </label>
+                          {isEdit && (
+                            <a
+                              className="text-gray-500 leading-[1.5rem] pl-[0.5rem]"
+                              target="_blank"
+                              href="https://twitter.com/"
+                            >
+                              https://twitter.com/
+                            </a>
+                          )}
+                          {!isEdit && (
+                            <input
+                              disabled={isEdit}
+                              className="form-controls"
+                              type="text"
+                              placeholder="https://twitter.com/"
+                            />
+                          )}
+                        </div>
+                        <div className="form-group flex flex-col">
+                          <label className="label">
+                            <i className="fa-brands fa-square-whatsapp mr-1"></i>
+                            Whatsapp:
+                          </label>
+                          {isEdit && (
+                            <a
+                              className="text-gray-500 leading-[1.5rem] pl-[0.5rem]"
+                              target="_blank"
+                              href="https://web.whatsapp.com/"
+                            >
+                              https://web.whatsapp.com/
+                            </a>
+                          )}
+                          {!isEdit && (
+                            <input
+                              disabled={isEdit}
+                              className="form-controls"
+                              type="text"
+                              placeholder="https://web.whatsapp.com/"
+                            />
+                          )}
+                        </div>
+                      </form>
+                    ),
+                  },
+                ]}
+              ></Collapse>
             </dd>
           </div>
         </dl>

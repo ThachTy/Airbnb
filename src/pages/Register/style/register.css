@@ -1,0 +1,31 @@
+#register {
+  height: max-content;
+  margin-block: 2em 1em;
+}
+#register .register__content {
+  width: clamp(350px, 40vw, 700px);
+  background-color: ghostwhite;
+  margin-inline: auto;
+  padding-inline: max(3vw, 1.5em);
+  padding-block-end: 1em;
+}
+#register .register__content .heading {
+  font-size: 3em;
+  color: var(--color-pink-1);
+  font-weight: 500;
+  text-align: center;
+}
+#register .register__content .register__form {
+  width: 100%;
+}
+#register .register__content .btn-register {
+  display: block;
+  background-color: var(--color-pink-1);
+  color: #fff;
+  font-weight: 500;
+  font-size: 1.4em;
+  height: 40px;
+  margin: auto;
+  border: none;
+  padding: 0 1.5em;
+}/*# sourceMappingURL=register.css.map */

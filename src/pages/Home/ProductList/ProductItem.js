@@ -9,7 +9,7 @@ export default function ProductItem({ data }) {
   const navigate = useNavigate();
 
   const settings = {
-    dots: true,
+    dots: false,
     infinite: false,
     speed: 500,
     slidesToShow: 1,

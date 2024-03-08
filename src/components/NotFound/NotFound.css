@@ -1,0 +1,58 @@
+#notfound {
+  min-width: 100vw;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 999;
+  cursor: pointer;
+}
+#notfound .back {
+  position: absolute;
+  top: 2rem;
+  left: 2rem;
+  border-radius: 10rem;
+  background-color: #fbd088;
+  padding: 0.5rem 1rem;
+  transition: 0.25s all;
+  color: #474747;
+}
+#notfound :hover {
+  box-shadow: 0 0 10px 0 #000;
+}
+#notfound .img {
+  width: 100vw;
+  min-width: 400px;
+  height: 100%;
+  display: block;
+  object-fit: fill;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -1;
+}
+
+@media screen and (min-width: 576px) {
+  .back {
+    font-size: 0.7rem;
+  }
+  .img {
+    object-fit: cover;
+  }
+}
+@media screen and (min-width: 768px) {
+  .back {
+    font-size: 1rem;
+  }
+  .img {
+    object-fit: cover;
+  }
+}
+@media screen and (min-width: 992px) {
+  .back {
+    font-size: 1.2rem;
+  }
+  .img {
+    object-fit: fill;
+  }
+}/*# sourceMappingURL=NotFound.css.map */

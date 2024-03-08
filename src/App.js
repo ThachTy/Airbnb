@@ -15,58 +15,27 @@ import Booking from "./pages/Booking/Booking";
 import NotFound from "./components/NotFound/NotFound";
 import RoomManagement from "./pages/RoomManagement/RoomManagement";
 import Register from "./pages/Register/Register";
-import Test from "./components/Test";
-import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+import BookedRoom from "./pages/Account/components/BookedRoom/BookedRoom";
 
 export const queryClient = new QueryClient();
 function App() {
   return (
     <div className="App">
       <QueryClientProvider client={queryClient}>
-        <ReactQueryDevtools initialIsOpen={false} />
         <BrowserRouter>
           <Routes>
-            {/* Home */}
-            <Route
-              path="/"
-              element={
-                <UserLayout>
-                  <Home />
-                </UserLayout>
-              }
-            />
-            <Route
-              path="/detail/:idRoom"
-              element={
-                <UserLayout>
-                  <DetailRoom />
-                </UserLayout>
-              }
-            />
-            <Route
-              path="/account/:idUser"
-              element={
-                <UserLayout>
-                  <Account />
-                </UserLayout>
-              }
-            />
-            <Route
-              path="/profiles/:idUser"
-              element={
-                <UserLayout>
-                  <ProfilesUser />
-                </UserLayout>
-              }
-            />
-            <Route
-              path="/register"
-              element={
-                <UserLayout>
-                  <Register />
-                </UserLayout>
-              }
-            ></Route>
+            <Route path="/" element={<UserLayout />}>
+              {/* Home */}
+              <Route index element={<Home />}></Route>
+              <Route path="/detail/:idRoom" element={<DetailRoom />}></Route>
+              <Route path="/account/:idUser" element={<Account />}></Route>
+              <Route
+                path="/profiles/:idUser"
+                element={<ProfilesUser />}
+              ></Route>
+              <Route path="/login" element={<Login />}></Route>
+              <Route path="/register" element={<Register />}></Route>
+            </Route>
 
             {/* Admin */}
             <Route path="/admin" element={<AdminLayout />}>

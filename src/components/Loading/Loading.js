@@ -1,9 +1,9 @@
 import React from "react";
-import "./Loading.scss";
+import "./Loading.css";
 
 export default function Loading() {
   return (
-    <div className="container">
+    <div id="loading" className="container">
       <div className="box-of-star1">
         <div className="star star-position1"></div>
         <div className="star star-position2"></div>
