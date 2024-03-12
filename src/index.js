@@ -5,17 +5,10 @@ import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { Provider } from "react-redux";
-import { configureStore } from "@reduxjs/toolkit";
-import userSlice from "./redux/user.slice";
+import store from "./redux/store";
 
 const queryClient = new QueryClient();
 const root = ReactDOM.createRoot(document.getElementById("root"));
-
-const store = configureStore({
-  reducer: {
-    userReducer: userSlice,
-  },
-});
 
 root.render(
   <Provider store={store}>

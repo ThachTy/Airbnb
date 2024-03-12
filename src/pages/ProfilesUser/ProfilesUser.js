@@ -1,8 +1,9 @@
 import React, { useEffect, useRef, useState } from "react";
+import { useSelector } from "react-redux";
 import dayjs from "dayjs";
 import { Upload, Collapse, DatePicker } from "antd";
 import { UploadOutlined } from "@ant-design/icons";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { message } from "antd";
 /* */
 import avatar from "../../assets/image/AvatarUser.png";
@@ -18,13 +19,14 @@ export default function ProfilesUser() {
   const [isEdit, setIsEdit] = useState(true);
   const newProfilesRef = useRef({});
   const [profiles, setProfiles] = useState({});
+  const { user } = useSelector((state) => state.userReducer);
+  const navigate = useNavigate();
 
   /* Query */
   const { data, refetch } = useGetProfilesUserById(idUser);
 
   /* Mutation */
   const { data: dataProfiles, mutate } = usePutNewUserMutation(idUser);
-
   const { mutate: updateAvatar } = usePostAvavtarUser();
 
   useEffect(() => {
@@ -49,6 +51,7 @@ export default function ProfilesUser() {
     updateAvatar(formData, {
       onSuccess: (_) => {
         message.success("Successfull");
+        window.location.reload();
         refetch();
       },
     });
@@ -106,6 +109,8 @@ export default function ProfilesUser() {
     // Reset
     newProfilesRef.current = {};
   };
+
+  if (user.id !== idUser * 1) navigate("/");
 
   return (
     <section

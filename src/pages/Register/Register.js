@@ -65,7 +65,7 @@ const RegisterUser = () => {
 
   return (
     <main id="register">
-      <div class="register__content">
+      <div className="register__content">
         <h3 className="heading">Đăng Ký </h3>
         <Form
           id="formRegister"

@@ -1,12 +1,15 @@
 import React, { Suspense, lazy } from "react";
 import "./Account.css";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useQuery } from "react-query";
 import { bookingApi } from "../../services/bookingServices";
 import Loading from "../../components/Loading/Loading";
+import { useSelector } from "react-redux";
 let BookedRoomLazy = lazy(() => import("./components/BookedRoom/BookedRoom"));
 export default function Account() {
   const { idUser } = useParams();
+  const { user } = useSelector((state) => state.userReducer);
+  const navigate = useNavigate();
 
   const { data, isLoading } = useQuery({
     queryKey: "getRoomByIdUSer",
@@ -24,6 +27,8 @@ export default function Account() {
       }
     },
   });
+
+  if (user.id !== idUser * 1) navigate("/");
 
   return (
     <main id="account" className="min-w-full">

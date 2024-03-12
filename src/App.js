@@ -15,10 +15,17 @@ import Booking from "./pages/Booking/Booking";
 import NotFound from "./components/NotFound/NotFound";
 import RoomManagement from "./pages/RoomManagement/RoomManagement";
 import Register from "./pages/Register/Register";
-import BookedRoom from "./pages/Account/components/BookedRoom/BookedRoom";
+import { useSelector } from "react-redux";
 
 export const queryClient = new QueryClient();
+
+const checkLogin = (isLogin, routeCheck, routError = null) => {
+  return isLogin ? routeCheck : <Route path="*" element={<NotFound />}></Route>;
+};
+
 function App() {
+  const { stateUser } = useSelector((state) => state.userReducer);
+  let isLogin = stateUser.isLogin;
   return (
     <div className="App">
       <QueryClientProvider client={queryClient}>
@@ -29,22 +36,28 @@ function App() {
               <Route index element={<Home />}></Route>
               <Route path="/detail/:idRoom" element={<DetailRoom />}></Route>
               <Route path="/account/:idUser" element={<Account />}></Route>
-              <Route
-                path="/profiles/:idUser"
-                element={<ProfilesUser />}
-              ></Route>
+              {checkLogin(
+                isLogin,
+                <Route
+                  path="/profiles/:idUser"
+                  element={<ProfilesUser />}
+                ></Route>
+              )}
+
               <Route path="/login" element={<Login />}></Route>
               <Route path="/register" element={<Register />}></Route>
             </Route>
-
             {/* Admin */}
-            <Route path="/admin" element={<AdminLayout />}>
-              <Route index element={<Admin></Admin>}></Route>
-              <Route path="users" element={<Users></Users>}></Route>
-              <Route path="locations" element={<Locations />}></Route>
-              <Route path="rooms" element={<RoomManagement />}></Route>
-              <Route path="booking" element={<Booking />}></Route>
-            </Route>
+            {checkLogin(
+              isLogin,
+              <Route path="/admin/" element={<AdminLayout />}>
+                <Route index element={<Admin></Admin>}></Route>
+                <Route path="users" element={<Users></Users>}></Route>
+                <Route path="locations" element={<Locations />}></Route>
+                <Route path="rooms" element={<RoomManagement />}></Route>
+                <Route path="booking" element={<Booking />}></Route>
+              </Route>
+            )}
 
             {/* Not Found */}
             <Route path="*" element={<NotFound />}></Route>

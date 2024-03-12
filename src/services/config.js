@@ -14,7 +14,7 @@ http.interceptors.request.use(
   function (config) {
     // Làm gì đó trước khi request dược gửi đi
     const account = getUserFromLocalStorage();
-    if (account.token)
+    if (account !== null)
       config.headers = { ...config.headers, token: account.token };
     return config;
   },

@@ -3,12 +3,13 @@ import logo from "../../assets/image/AirbnbLogo.png";
 import { GlobeAltIcon } from "@heroicons/react/20/solid";
 import "./styles/styles.css";
 import { Link } from "react-router-dom";
-import {
-  getUserFromLocalStorage,
-  removeUserFromLocalStorage,
-} from "../../utils/localStorage";
+import { getUserFromLocalStorage } from "../../utils/localStorage";
 import defaultAvatar from "../../assets/image/AvatarUser.png";
 import { useGetProfilesUsersbyId } from "../../pages/Users/query/userQuery";
+import { usersApi } from "../../services/usersServices";
+import { useDispatch, useSelector } from "react-redux";
+import { userAction } from "../../redux/reducers/userReducer";
+import { handleLogOut } from "../../utils/logOut";
 
 const handleShowNavs = () => {
   if (window.innerWidth >= 900) return;
@@ -16,21 +17,35 @@ const handleShowNavs = () => {
   navs.classList.toggle("show");
 };
 
-const handleLogOut = () => {
-  removeUserFromLocalStorage() && console.log("Log out successful");
-  window.location.assign("/");
-};
-
-const Header = () => {
+function Header() {
+  const dispath = useDispatch();
   const [account, setAccount] = useState({});
-  let login = getUserFromLocalStorage();
-  const { data: user } = useGetProfilesUsersbyId(login.user.id);
+  const { user, stateUser } = useSelector((state) => state.userReducer);
+  let { isLogin } = stateUser;
 
   useEffect(() => {
-    if (user) {
-      setAccount(user);
+    try {
+      const data = getUserFromLocalStorage();
+      if (data?.token) {
+        usersApi
+          .getProfilesUserById(data.id)
+          .then((res) => {
+            setAccount(res.data.content);
+            dispath(
+              userAction({
+                user: res.data.content,
+                stateUser: { isLogin: true },
+              })
+            );
+          })
+          .catch((err) => {
+            throw err;
+          });
+      }
+    } catch (error) {
+      console.error(error);
     }
-  }, [user]);
+  }, [isLogin]);
 
   return (
     <header id="header" className="shadow-md py-5">
@@ -60,53 +75,63 @@ const Header = () => {
             Thuê chỗ ở qua Airbnb
           </p>
           <GlobeAltIcon className="h-6 cursor-pointer" />
-          <div className="btn-bars flex items-center space-x-2 border-2 rounded-full">
+          <div className="avatar flex justify-center items-center rounded-full">
             <button onClick={handleShowNavs} className="btn-bars" role="button">
               <i className="fa-solid fa-bars"></i>
             </button>
 
             <div className="account">
-              <button className="btn-account" role="button">
-                {account.id ? (
-                  <img
-                    className="rounded-full"
-                    width="50"
-                    height="50"
-                    src={account.avatar || defaultAvatar}
-                  />
-                ) : (
-                  <i className="fa-regular fa-circle-user"></i>
+              {account.id ? (
+                <div className="account__avatar rounded-full border-2">
+                  <button
+                    className="btn-account w-full h-full block"
+                    role="button"
+                  >
+                    <img
+                      className="rounded-full object-fill w-full h-full"
+                      src={account.avatar || defaultAvatar}
+                    />
+                  </button>
+                </div>
+              ) : (
+                <i className="fa-regular fa-circle-user"></i>
+              )}
+
+              <ul className="account__dropdown">
+                {!isLogin && (
+                  <li className="dropdown-items">
+                    <Link to="/login">
+                      <i className="fa-solid fa-address-card"></i>Đăng Nhập
+                    </Link>
+                  </li>
                 )}
-              </button>
-              <ul className="dropdown">
-                <li className="dropdown-items">
-                  <Link to="/login">
-                    <i className="fa-solid fa-address-card"></i>Login
-                  </Link>
-                </li>
+
                 <li className="dropdown-items">
                   <Link to="/register">
-                    <i className="fa-regular fa-pen-to-square"></i>Register
+                    <i className="fa-regular fa-pen-to-square"></i>Đăng Ký
                   </Link>
                 </li>
+
+                {user?.role && user?.role === "ADMIN" && (
+                  <li className="dropdown-items">
+                    <Link to={`/admin/`}>
+                      <i className="fa-solid fa-layer-group"></i>Admin
+                    </Link>
+                  </li>
+                )}
                 <li className="dropdown-items">
-                  <Link to="/admin">
-                    <i className="fa-solid fa-layer-group"></i>Admin
-                  </Link>
-                </li>
-                <li className="dropdown-items">
-                  <Link to="/account/:idUser">
-                    <i className="fa-solid fa-layer-group"></i>Booked Room
+                  <Link to={`/account/${account.id}`}>
+                    <i className="fa-solid fa-layer-group"></i>Phòng Đặt
                   </Link>
                 </li>
                 <li className="dropdown-items">
                   <Link to={`/profiles/${account.id}`}>
-                    <i className="fa-solid fa-layer-group"></i>Profiles
+                    <i className="fa-solid fa-layer-group"></i>Thông Tin
                   </Link>
                 </li>
                 <li className="dropdown-items">
                   <a onClick={handleLogOut} role="button">
-                    <i className="fa-solid fa-right-from-bracket"></i>
+                    <i className="fa-solid fa-right-from-bracket"></i>Đăng Xuất
                   </a>
                 </li>
               </ul>
@@ -116,6 +141,6 @@ const Header = () => {
       </div>
     </header>
   );
-};
+}
 
 export default Header;

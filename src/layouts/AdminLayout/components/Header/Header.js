@@ -3,14 +3,11 @@ import "./Header.scss";
 import defaultAvatar from "../../../../assets/image/AvatarUser.png";
 import logo from "../../../../assets/image/AirbnbLogo.png";
 import { Dropdown } from "antd";
-import { useGetProfilesUsersbyId } from "../../../../pages/Users/query/userQuery";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { getUserFromLocalStorage } from "../../../../utils/localStorage";
-
-const handelLogout = () => {
-  localStorage.removeItem("user");
-  window.location.href = "/";
-};
+import { usersApi } from "../../../../services/usersServices";
+import { handleLogOut } from "../../../../utils/logOut";
+import { useSelector } from "react-redux";
 
 const items = [
   {
@@ -42,24 +39,36 @@ const items = [
   },
   {
     label: (
-      <a onClick={handelLogout} role="button">
+      <a onClick={handleLogOut} role="button">
         Logout
       </a>
     ),
     key: "3",
   },
 ];
-export default function Header({ id }) {
+
+export default function Header() {
   const [account, setAccount] = useState({});
-  let login = getUserFromLocalStorage();
-  const { data: user } = useGetProfilesUsersbyId(login.user.id);
+  const idAdmin = useParams();
+  // const { user } = useSelector((state) => state.userReducer);
 
   useEffect(() => {
-    if (user) {
-      console.log(user);
-      setAccount(user);
+    try {
+      const data = getUserFromLocalStorage();
+      if (data?.token) {
+        usersApi
+          .getProfilesUserById(data.id)
+          .then((res) => {
+            setAccount(res.data.content);
+          })
+          .catch((err) => {
+            throw err;
+          });
+      }
+    } catch (error) {
+      console.error(error);
     }
-  }, [user]);
+  }, []);
 
   return (
     <header

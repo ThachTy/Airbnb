@@ -3,6 +3,7 @@ export const getUserFromLocalStorage = () => {
   if (user) {
     return JSON.parse(user);
   }
+  return null;
 };
 
 export const saveUserFromLocalStorage = (value) => {

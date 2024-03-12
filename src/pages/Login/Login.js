@@ -1,16 +1,17 @@
 import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
-import { useSearchParams } from "react-router-dom";
-import { login } from "../../ReduxToolkit/Slice/userSlice";
+import { useSearchParams, useNavigate } from "react-router-dom";
+import { userAction } from "../../redux/reducers/userReducer";
 import { usersApi } from "../../services/usersServices";
 import { saveUserFromLocalStorage } from "../../utils/localStorage";
 import { getUserFromLocalStorage } from "../../utils/localStorage";
 import "./Login.scss";
 
 const Login = () => {
-  const [searchParams, setSearchParams] = useSearchParams();
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const [searchParams, setSearchParams] = useSearchParams();
   const { register, handleSubmit, formState } = useForm({
     defaultValue: { email: "", password: "" },
     mode: "onTouched",
@@ -19,9 +20,9 @@ const Login = () => {
   const [account, setAccount] = useState({ email: "", password: "" });
 
   useEffect(() => {
-  if (getUserFromLocalStorage()) {
+    if (getUserFromLocalStorage()) {
       let { user } = getUserFromLocalStorage();
-      setAccount({ email: user.email, password: user.password });
+      // setAccount({ email: user.email, password: user.password });
     }
   }, []);
 
@@ -29,8 +30,10 @@ const Login = () => {
     usersApi
       .login(values)
       .then((res) => {
-        saveUserFromLocalStorage(res);
-        window.location.assign("/");
+        let { user, token } = res;
+        saveUserFromLocalStorage({ id: user.id, token: token });
+        dispatch(userAction({ user: {}, stateUser: { isLogin: true } }));
+        navigate("/");
       })
       .catch((err) => {
         console.log(err);
@@ -53,7 +56,6 @@ const Login = () => {
             className="input"
             id="email"
             placeholder="Email..."
-            value={account.email ? account?.email : null}
             type="text"
             {...register("email", {
               required: {
